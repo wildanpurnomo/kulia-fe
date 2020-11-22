@@ -5,7 +5,7 @@
         <div
           class="text-center text-md-h3 text-lg-h3 text-xl-h3 text-sm-h5 text-h5 font-weight-light black--text"
         >
-          Selamat Datang di Web
+          Selamat Datang
         </div>
       </v-col>
       <v-col cols="6">
