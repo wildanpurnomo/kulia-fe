@@ -11,12 +11,14 @@
             </v-row>
             <v-form ref="loginForm">
               <v-text-field
+                v-model="user.username"
                 label="Username"
                 type="text"
                 append-icon="mdi-account"
                 required
               ></v-text-field>
               <v-text-field
+                v-model="user.password"
                 label="Password"
                 :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="isPasswordShown ? 'text' : 'password'"
@@ -24,10 +26,17 @@
                 @click:append="isPasswordShown = !isPasswordShown"
               ></v-text-field>
               <div class="text-center mb-8">
-                <v-btn width="100%" type="submit" class="white--text red accent-2 rounded-xl">Sign In</v-btn>
+                <v-btn
+                  width="100%"
+                  type="submit"
+                  class="primary"
+                  :disabled="isFormLoading"
+                  :loading="isFormLoading"
+                  @click.prevent="login"
+                  >Login</v-btn
+                >
               </div>
               <div class="text-center">
-                didn't have an account?
                 <router-link :to="{ name: 'Register' }">Register</router-link>
               </div>
               <div class="red--text mt-8" :hidden="errorMessage.length === 0">
@@ -44,19 +53,40 @@
 <script>
 import Snackbar from "@/components/Snackbar";
 import { EventBus } from "@/bus";
+import formInputMixin from "@/mixins/form.mixin";
+import errorMixin from "@/mixins/error.mixin";
+import UserModel from "@/models/user.model";
 
 export default {
   name: "Login",
   components: { Snackbar },
   data: () => ({
+    user: new UserModel(),
     isPasswordShown: false,
     errorMessage: "",
   }),
   methods: {
+    async login() {
+      this.isFormLoading = true;
+      try {
+        let response = await this.$store.dispatch("auth/login", this.user);
+        if (response.status === 200) {
+          this.errorMessage = "";
+          this.$router.push({ name: "Home" });
+        }
+      } catch (error) {
+        this.errorMessage = this.getErrorMessage(error);
+        this.isFormLoading = false;
+      }
+    },
   },
   mounted() {
-    EventBus.$emit("onShowSnackbar", "Hallo niece and nephew");
-  }
+    let params = this.$route.params;
+    if (params.snackbarMessage) {
+      EventBus.$emit("onShowSnackbar", params.snackbarMessage);
+    }
+  },
+  mixins: [formInputMixin, errorMixin],
 };
 </script>
 <style>

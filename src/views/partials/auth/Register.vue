@@ -11,18 +11,24 @@
                 Register
               </div>
             </v-row>
-            <v-form ref="registerForm">
+            <v-form ref="registerForm" v-model="isFormValid">
               <v-text-field
+                v-model="user.username"
+                :rules="this.usernameRules"
                 label="Username"
                 type="text"
                 required
               ></v-text-field>
               <v-text-field
+                v-model="user.email"
+                :rules="this.emailRules"
                 label="Email"
                 type="email"
                 required
               ></v-text-field>
               <v-text-field
+                v-model="user.password"
+                :rules="this.passwordRules"
                 label="Password"
                 :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="isPasswordShown ? 'text' : 'password'"
@@ -30,18 +36,22 @@
                 required
               ></v-text-field>
               <v-text-field
-                v-model="passwordConfirmation"
+                v-model="user.passwordConfirmation"
                 label="Konfirmasi Password"
                 :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="isPasswordShown ? 'text' : 'password'"
-                @click:append="isPasswordShown = !isPasswordShown"
                 required
+                :rules="passwordConfirmationRules"
+                @click:append="isPasswordShown = !isPasswordShown"
               ></v-text-field>
               <div class="text-center mb-8">
                 <v-btn
                   type="submit"
                   class="primary"
                   width="100%"
+                  :disabled="!isFormValid || isFormLoading"
+                  :loading="isFormLoading"
+                  @click.prevent="register"
                   >Register</v-btn
                 >
               </div>
@@ -61,14 +71,42 @@
   </v-container>
 </template>
 <script>
+import formInputMixin from "@/mixins/form.mixin";
+import errorMixin from "@/mixins/error.mixin";
+import UserModel from "@/models/user.model";
+
 export default {
   name: "Register",
   data: () => ({
+    user: new UserModel(),
     errorMessage: "",
     passwordConfirmation: "",
     isPasswordShown: false,
   }),
-  methods: {
+  computed: {
+    passwordConfirmationRules() {
+      return [
+        (v) =>
+          (!!v && v) === this.user.password || "Masukkan password yang sama.",
+      ];
+    },
   },
+  methods: {
+    async register() {
+      this.isFormLoading = true;
+      try {
+        let response = await this.$store.dispatch("auth/register", this.user);
+        if (response.status === 200) {
+          this.isFormLoading = false;
+          this.errorMessage = "";
+          this.$router.push({ name: "Home" });
+        }
+      } catch (error) {
+        this.errorMessage = this.getErrorMessage(error);
+        this.isFormLoading = false;
+      }
+    },
+  },
+  mixins: [formInputMixin, errorMixin],
 };
 </script>
