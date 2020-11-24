@@ -1,20 +1,25 @@
 <template>
   <v-container fill-height>
     <v-row align="center">
-      <v-col cols="12">
-        <div
-          class="text-center text-md-h3 text-lg-h3 text-xl-h3 text-sm-h5 text-h5 font-weight-light black--text"
-        >
-          Selamat Datang di Web
-        </div>
-      </v-col>
       <v-col cols="6">
-        <div class="text-end">
-          <v-btn color="primary" text :to="{ name: 'Login' }">Login</v-btn>
-        </div>
+        <v-img src="../assets/image.png"></v-img>
       </v-col>
-      <v-col cols="6">
-        <v-btn color="primary" text :to="{ name: 'Register' }">Daftar</v-btn>
+      <v-spacer></v-spacer>
+      <v-col cols="5">
+        <v-card-title class="font blue-grey--text text--darken-3">
+          Wappita
+        </v-card-title>
+        <v-card-text class="pt-2" width="100">
+          tugastugastugastugastugastugastugastugas tugastugastugastugastugastugastugas tugastugastugastugas
+        </v-card-text>
+        <v-row class="pl-8 pt-6">
+          <div class="mr-8">
+            <v-btn class="white--text red accent-2 rounded-xl" outlined :to="{ name: 'Login' }">Login</v-btn>
+          </div>
+          <div>
+            <v-btn class="blue-grey--text text--darken-3 rounded-xl" outlined :to="{ name: 'Register' }">Daftar</v-btn>
+          </div>
+        </v-row> 
       </v-col>
     </v-row>
   </v-container>
@@ -30,3 +35,10 @@ export default {
   }),
 };
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap');
+.font{
+  font-family: Lobster Two;
+  font-size: 40px;
+}
+</style>
