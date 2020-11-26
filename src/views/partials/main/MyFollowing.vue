@@ -5,7 +5,7 @@
         <div
           class="text-center text-md-h3 text-lg-h3 text-xl-h3 text-sm-h5 text-h5 font-weight-light black--text"
         >
-          Beranda
+          Saya Ikuti
         </div>
       </v-col>
     </v-row>
@@ -15,7 +15,7 @@
 import { EventBus } from "@/bus";
 
 export default {
-  name: "Home",
+  name: "MyFollowing",
 
   components: {},
 
@@ -23,7 +23,7 @@ export default {
     //
   }),
   created() {
-    EventBus.$emit("onPageChange", "Beranda");
+    EventBus.$emit("onPageChange", "Saya Ikuti");
   },
 };
 </script>

@@ -52,7 +52,7 @@ export const auth = {
                     },
                     error => { return Promise.reject(error); }
                 )
-        }
+        },
     },
     mutations: {
         authSuccess(state, userData) {

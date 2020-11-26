@@ -1,21 +1,29 @@
 <template>
   <div>
-    <MainNavbar :pageTitle="currentPageName" />
+    <MainNavbar :pages="children" />
+    <Snackbar :duration="3000" />
     <router-view></router-view>
   </div>
 </template>
 <script>
+import Snackbar from "@/components/Snackbar";
 import MainNavbar from "@/components/Navbar.vue";
 import { EventBus } from "@/bus";
+import PageModel from "@/models/page.model";
 
 export default {
   name: "Main",
   components: {
     MainNavbar,
+    Snackbar,
   },
   data: () => ({
-    currentPageName: "Home",
+    currentPageName: "Beranda",
     children: [
+      new PageModel("Beranda", "mdi-view-dashboard", { name: "Home" }),
+      new PageModel("Konten Saya", "mdi-content-paste", { name: "MyContent" }),
+      new PageModel("Mengikuti", "mdi-account-box-multiple", { name: "MyFollowing" }),
+      new PageModel("Edit Profil", "mdi-account", { name: "MyProfile" }),
     ],
   }),
   methods: {
@@ -29,19 +37,27 @@ export default {
     async logout(isForceLogout = false) {
       let logoutResponse = await this.$store.dispatch("auth/logout");
       if (logoutResponse.status === 200) {
-        let message = isForceLogout
-          ? "Session expired"
-          : "Successfully logged user out";
+        this.resetStates();
+        let message = isForceLogout ? "Sesi berakhir" : "Berhasil log out";
         this.redirectLogin(message);
       }
     },
     redirectLogin(snackbarMessage) {
-      this.$router.push({
-        name: "Login",
-        params: {
-          snackbarMessage: snackbarMessage,
-        },
-      });
+      this.$router
+        .push({
+          name: "Login",
+          params: {
+            snackbarMessage: snackbarMessage,
+          },
+        })
+        .catch((err) => {
+          if (process.env.NODE_ENV === "development") {
+            console.error(err);
+          }
+        });
+    },
+    resetStates() {
+      this.$store.dispatch("content/resetState");
     },
   },
   created() {
@@ -49,7 +65,7 @@ export default {
       this.logout();
     });
     EventBus.$on("onSessionEnd", () => {
-      this.logout(true);
+      this.logout({ isForceLogout: true});
     });
     EventBus.$on("onAuthenticate", () => {
       this.authenticate();
