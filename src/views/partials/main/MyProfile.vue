@@ -87,6 +87,8 @@
 </template>
 
 <script>
+import { EventBus } from "@/bus";
+
 export default {
   data() {
     return {
@@ -99,6 +101,9 @@ export default {
         min: (v) => v.length >= 8 || "Min 8 characters",
       },
     };
+  },
+  created() {
+    EventBus.$emit("onPageChange", "Profil");
   },
 };
 </script>
