@@ -102,8 +102,8 @@ export default {
           this.$router.push({ name: "Home" });
         }
       } catch (error) {
-        this.errorMessage = this.getErrorMessage(error);
         this.isFormLoading = false;
+        this.errorMessage = this.getErrorMessage(error);
       }
     },
   },

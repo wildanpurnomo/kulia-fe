@@ -75,8 +75,8 @@ export default {
           this.$router.push({ name: "Home" });
         }
       } catch (error) {
-        this.errorMessage = this.getErrorMessage(error);
         this.isFormLoading = false;
+        this.errorMessage = this.getErrorMessage(error);
       }
     },
   },
@@ -90,8 +90,8 @@ export default {
 };
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap');
-.font{
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap");
+.font {
   font-family: Lobster Two;
   font-size: 40px;
 }

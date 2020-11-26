@@ -18,7 +18,7 @@ export const mainRouter = {
             component: () => import('@/views/partials/main/AddContent.vue')
         },
         {
-            path:'/edit-content',
+            path:'/edit-content/:contentId',
             name: 'EditContent',
             component: () => import('@/views/partials/main/AddContent.vue')
         },
@@ -26,6 +26,11 @@ export const mainRouter = {
             path:'/my-profile',
             name: 'MyProfile',
             component: () => import('@/views/partials/main/MyProfile.vue')
+        },
+        {
+            path:'/my-following',
+            name: 'MyFollowing',
+            component: () => import('@/views/partials/main/MyFollowing.vue')
         }
     ]
 }

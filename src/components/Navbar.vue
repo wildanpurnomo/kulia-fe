@@ -21,12 +21,12 @@
       <v-list nav>
         <v-list-item two-line>
           <v-list-item-avatar>
-            <v-img :src="require('@/assets/logo.png')"></v-img>
+            <v-img :src="user.profilePicUrl"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{ user.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ user.role }}</v-list-item-subtitle>
+            <v-list-item-title>{{ user.username }}</v-list-item-title>
+            <v-list-item-subtitle>Poin: {{ user.points }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -57,7 +57,6 @@ import { EventBus } from "@/bus";
 export default {
   name: "Navbar",
   props: {
-    pageTitle: String,
     pages: Array,
   },
   computed: {
@@ -68,6 +67,7 @@ export default {
   data: () => ({
     isDrawer: false,
     colorTheme: "primary",
+    pageTitle: ''
   }),
   methods: {
     logout() {
