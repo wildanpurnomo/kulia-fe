@@ -1,8 +1,5 @@
 <template>
-  <v-container fill-height>
-    <div>
-      <Breadcrumbs />
-    </div>
+  <v-container>
     <v-row justify="center">
       <v-col cols="8">
         <div class="text-h5">
@@ -27,14 +24,24 @@
             outlined
             dense
           ></v-file-input>
-          <v-btn
-            :disabled="!isFormValid || isFormLoading"
-            :loading="isFormLoading"
-            type="submit"
-            class="white--text red accent-2 rounded-xl"
-            @click.prevent="submitContent"
-            >Submit</v-btn
-          >
+          <v-row class="ma-2" style="float: right">
+            <div class="mr-8">
+              <v-btn
+                :disabled="!isFormValid || isFormLoading"
+                :loading="isFormLoading"
+                type="submit"
+                class="white--text red accent-2 rounded-xl"
+                @click.prevent="submitContent"
+              >Submit</v-btn>
+            </div>
+            <div>
+              <v-btn
+                class="blue-grey--text text--darken-3 rounded-xl"
+                outlined
+                :to="{ name: 'MyContent' }"
+              >Batal</v-btn>
+            </div>
+          </v-row>
         </v-form>
       </v-col>
     </v-row>
@@ -43,13 +50,9 @@
 <script>
 import ContentModel from "@/models/content.model";
 import formInputMixin from "@/mixins/form.mixin";
-import Breadcrumbs from "@/components/Breadcrumbs.vue";
 import { EventBus } from "@/bus";
 
 export default {
-  components: {
-    Breadcrumbs,
-  },
   data: () => ({
     isEdit: false,
     contentData: new ContentModel(),
