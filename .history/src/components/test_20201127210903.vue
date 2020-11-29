@@ -1,0 +1,28 @@
+<template>
+<v-container>
+    <v-fab-transition>
+      <v-btn
+        fab
+        medium
+        dark
+        bottom
+        right
+        fixed
+        class="v-btn--example"
+        :to="{ name: 'Login' }"
+      >
+        <v-icon>mdi-exit-to-app</v-icon>
+      </v-btn>
+    </v-fab-transition>
+</v-container>
+</template>
+
+<script>
+export default {
+    name: "Content",
+    data: () => ({
+       colorTheme: "#4F4F68"
+    })
+    
+}
+</script>

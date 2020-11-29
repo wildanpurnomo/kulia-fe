@@ -1,0 +1,112 @@
+<template>
+  <v-container fill-height>
+    <v-row>
+      <v-col cols="12">
+        <v-row justify="center">
+          <v-card class="pa-10 rounded-lg" width="500">
+            <v-row justify="center">
+              <div
+                class="mb-16 text-h3 font-weight-light blue--text text--lighten-2"
+              >
+                Register
+              </div>
+            </v-row>
+            <v-form ref="registerForm" v-model="isFormValid">
+              <v-text-field
+                v-model="user.username"
+                :rules="this.usernameRules"
+                label="Username"
+                type="text"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="user.email"
+                :rules="this.emailRules"
+                label="Email"
+                type="email"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="user.password"
+                :rules="this.passwordRules"
+                label="Password"
+                :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="isPasswordShown ? 'text' : 'password'"
+                @click:append="isPasswordShown = !isPasswordShown"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="user.passwordConfirmation"
+                label="Konfirmasi Password"
+                :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="isPasswordShown ? 'text' : 'password'"
+                required
+                :rules="passwordConfirmationRules"
+                @click:append="isPasswordShown = !isPasswordShown"
+              ></v-text-field>
+              <div class="text-center mb-8">
+                <v-btn
+                  type="submit"
+                  class="primary"
+                  width="100%"
+                  :disabled="!isFormValid || isFormLoading"
+                  :loading="isFormLoading"
+                  @click.prevent="register"
+                  >Register</v-btn
+                >
+              </div>
+              <div class="text-center">
+                <router-link :to="{ name: 'Login' }"
+                  >Kembali ke login</router-link
+                >
+              </div>
+              <div class="h6 red--text" :hidden="errorMessage.length === 0">
+                {{ errorMessage }}
+              </div>
+            </v-form>
+          </v-card>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+<script>
+import formInputMixin from "@/mixins/form.mixin";
+import errorMixin from "@/mixins/error.mixin";
+import UserModel from "@/models/user.model";
+
+export default {
+  name: "Register",
+  data: () => ({
+    user: new UserModel(),
+    errorMessage: "",
+    passwordConfirmation: "",
+    isPasswordShown: false,
+  }),
+  computed: {
+    passwordConfirmationRules() {
+      return [
+        (v) =>
+          (!!v && v) === this.user.password || "Masukkan password yang sama.",
+      ];
+    },
+  },
+  methods: {
+    async register() {
+      this.isFormLoading = true;
+      try {
+        let response = await this.$store.dispatch("auth/register", this.user);
+        if (response.status === 200) {
+          this.isFormLoading = false;
+          this.errorMessage = "";
+          this.$router.push({ name: "Home" });
+        }
+      } catch (error) {
+        this.isFormLoading = false;
+        this.errorMessage = this.getErrorMessage(error);
+      }
+    },
+  },
+  mixins: [formInputMixin, errorMixin],
+};
+</script>

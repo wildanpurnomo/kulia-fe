@@ -1,72 +1,79 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-card class="primary">
-          <v-row>
-            <v-col md="10" xs="10">
-              <div class="white--text text-h5 ml-3">
-                Daftar Konten Ditambahkan
-              </div>
-            </v-col>
-            <v-col md="2" xs="2" class="text-end">
-              <v-btn
-                text
-                dark
-                dense
-                style="text-transform: capitalize"
-                :to="{ name: 'AddContent' }"
-              >
-                <v-icon>mdi-plus-thick</v-icon>
-                <span class="white--text text-h6 hidden-sm-and-down"
-                  >Tambah</span
-                >
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-col>
-      <v-col cols="12">
+  <v-container fill-height>
+    <v-row justify="center">
+<!-- search       -->
+      <v-col cols="8">
         <v-text-field
           v-model="searchQuery"
           outlined
           label="Cari judul konten"
           append-icon="mdi-magnify"
+          rounded
         ></v-text-field>
       </v-col>
+<!-- list konten -->
       <v-col
-        cols="12"
+        cols="8"
+        class="ma-2 grey lighten-3 rounded-lg"
         v-for="(item, index) in personalContentList"
         :key="index"
       >
-        <v-row>
-          <v-col cols="8">
+        <v-row align="center">
+          <v-col cols="8" class="pa-1 pl-5">
             <div class="text-h6">{{ item.title }}</div>
             <span>Dibagikan {{ item.sharedBy.length }} kali</span>
           </v-col>
-          <v-col cols="2" class="text-end">
-            <v-btn text :to="{ name: 'EditContent', params: { contentId: item._id } }">
-              <v-icon>mdi-pencil</v-icon>
-              <span class="hidden-sm-and-down">Edit</span>
-            </v-btn>
-          </v-col>
-          <v-col cols="2" class="text-end">
-            <v-btn
-              text
-              @click="displayDeleteConfirmationDialog(item.title, item._id)"
-            >
-              <v-icon>mdi-delete</v-icon>
-              <span class="hidden-sm-and-down">Hapus</span>
-            </v-btn>
+
+          <v-spacer></v-spacer>
+          <v-col cols="2" class="pr-8">
+            <v-row>
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    text
+                    class="red accent-2"
+                    fab
+                    small
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    :to="{ name: 'EditContent', params: { contentId: item._id } }"
+                  >
+                    <v-icon>mdi-pencil</v-icon>
+                    <span class="hidden-sm-and-down"></span>
+                  </v-btn>
+                </template>
+                <span>Edit Konten</span>
+              </v-tooltip>
+
+              <v-spacer></v-spacer>
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    class="blue-grey--text text--darken-3"
+                    fab
+                    small
+                    outlined
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="displayDeleteConfirmationDialog(item.title, item._id)"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                    <span class="hidden-sm-and-down"></span>
+                  </v-btn>
+                </template>
+                <span>Hapus Konten</span>
+              </v-tooltip>
+            </v-row>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
     <v-dialog v-model="isDeleteDialogShown" max-width="500" persistent>
-      <v-card>
+      <v-card class="pa-3">
         <v-card-title class="headline">Konfirmasi penghapusan</v-card-title>
-        <v-card-text>{{
-          `Anda akan menghapus ${toBeDeleted.title}`
+        <v-card-text class="text-subtitle-2">{{
+          `Apakah anda yakin ingin menhapus konten dengan judul ${toBeDeleted.title}?`
         }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -74,21 +81,31 @@
             color="blue darken-1"
             text
             @click="isDeleteDialogShown = !isDeleteDialogShown"
-            >Batal</v-btn
+          >Batal</v-btn
           >
-          <v-btn color="blue darken-1" text @click="deleteContent">Ya</v-btn>
+          <v-btn
+            color="blue darken-1"
+            text @click="deleteContent"
+          >Ya</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <div>
+      <AddContent />
+    </div>
   </v-container>
 </template>
+
 <script>
+import AddContent from "@/components/Add.vue";
 import { EventBus } from "@/bus";
 
 export default {
   name: "MyContent",
 
-  components: {},
+  components: {
+    AddContent,
+  },
 
   data: () => ({
     searchQuery: "",
@@ -96,6 +113,7 @@ export default {
     toBeDeleted: {
       id: "",
       title: "",
+      colorTheme: "#4F4F68",
     },
   }),
   computed: {

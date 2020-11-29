@@ -1,12 +1,15 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
+  <v-container fill-height>
+    <div>
+      <Breadcrumbs />
+    </div>
+    <v-row justify="center">
+      <v-col cols="8">
         <div class="text-h5">
           {{ isEdit ? "Perbarui Konten" : "Tambah Konten Baru" }}
         </div>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="8">
         <v-form ref="contentForm" v-model="isFormValid">
           <v-text-field
             v-model="contentData.title"
@@ -19,12 +22,17 @@
             outlined
             label="Deskripsi"
           ></v-textarea>
+          <v-file-input
+            label="Upload File"
+            outlined
+            dense
+          ></v-file-input>
           <v-btn
             :disabled="!isFormValid || isFormLoading"
             :loading="isFormLoading"
             type="submit"
+            class="white--text red accent-2 rounded-xl"
             @click.prevent="submitContent"
-            class="primary"
             >Submit</v-btn
           >
         </v-form>
@@ -35,9 +43,13 @@
 <script>
 import ContentModel from "@/models/content.model";
 import formInputMixin from "@/mixins/form.mixin";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 import { EventBus } from "@/bus";
 
 export default {
+  components: {
+    Breadcrumbs,
+  },
   data: () => ({
     isEdit: false,
     contentData: new ContentModel(),

@@ -3,20 +3,20 @@
     <v-row justify="center">
       <v-col cols="8" class="pa-10 grey lighten-3 rounded-lg">
         <v-card-title class="font blue-grey--text text--darken-3 mb-2">
-          My Profile
+          Profil Saya
         </v-card-title>
         <v-divider class="mb-6"></v-divider>
         <v-row class="ml-2">
-          <v-col cols="3" class="mt-5"> Name: </v-col>
+          <v-col cols="3" class="mt-5"> Nama: </v-col>
           <v-col cols="9">
             <v-text-field placeholder="Your Name" filled></v-text-field>
           </v-col>
         </v-row>
         <v-row class="ml-2">
-          <v-col cols="3" class="mt-5"> Email: </v-col>
+          <v-col cols="3" class="mt-5"> E-mail: </v-col>
           <v-spacer></v-spacer>
           <v-col cols="9">
-            <v-text-field placeholder="Your Email" filled></v-text-field>
+            <v-text-field placeholder="Your E-mail" filled></v-text-field>
           </v-col>
         </v-row>
         <v-row class="ml-2">
@@ -66,19 +66,17 @@
         <v-row class="ma-2" style="float: right">
           <div class="mr-8">
             <v-btn
-              class="blue-grey--text text--darken-3 rounded-xl"
-              outlined
-              :to="{ name: 'Home' }"
-              >Cancel</v-btn
-            >
-          </div>
-          <div>
-            <v-btn
               class="white--text red accent-2 rounded-xl"
               outlined
               width="100"
-              >Save</v-btn
-            >
+              >Simpan</v-btn>
+          </div>
+          <div>
+            <v-btn
+              class="blue-grey--text text--darken-3 rounded-xl"
+              outlined
+              :to="{ name: 'Home' }"
+              >Batal</v-btn>
           </div>
         </v-row>
       </v-col>
