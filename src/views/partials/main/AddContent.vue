@@ -107,7 +107,9 @@ export default {
         this.contentData = this.detailContent;
       }
     }
-    EventBus.$emit("onPageChange", "Konten Saya");
+  },
+  mounted() {
+    EventBus.$emit("onPageChange", "Tambah Konten");
   },
   mixins: [formInputMixin],
 };

@@ -37,6 +37,11 @@ export const mainRouter = {
             name: 'MyFollowing',
             component: () => import('@/views/partials/main/MyFollowing.vue'),
             meta: {value:'Saya Ikuti'},
+        },
+        {
+            path: '/search-user/',
+            name: 'SearchUser',
+            component: () => import('@/views/partials/main/SearchUsers.vue')
         }
     ]
 }

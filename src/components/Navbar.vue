@@ -4,7 +4,6 @@
       <v-app-bar-nav-icon @click="isDrawer = !isDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ pageTitle }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="hidden-sm-and-down">Selamat datang, {{ user.username }}</div>
       <v-btn @click="logout" text>
         <span>Logout</span>
         <v-icon>mdi-exit-to-app</v-icon>
@@ -26,7 +25,6 @@
 
           <v-list-item-content>
             <v-list-item-title>{{ user.username }}</v-list-item-title>
-            <v-list-item-subtitle>Poin: {{ user.points }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -78,7 +76,8 @@ export default {
     if (this.user.username === "") {
       EventBus.$emit("onAuthenticate");
     }
-
+  },
+  mounted() {
     EventBus.$on("onPageChange", (pageTitle) => {
       this.pageTitle = pageTitle;
     });

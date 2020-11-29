@@ -61,6 +61,7 @@ export default {
     },
     resetStates() {
       this.$store.dispatch("content/resetState");
+      this.$store.dispatch("story/resetState");
     },
   },
   created() {
