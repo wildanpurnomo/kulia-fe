@@ -3,9 +3,9 @@
     <v-row>
       <v-col cols="12">
         <v-row justify="center">
-          <v-card class="pa-8 rounded-lg" width="500">
+          <v-card class="pa-10 rounded-lg" width="500" :color="colorTheme">
             <v-row justify="center">
-              <div class="mb-16 text-h3 blue-grey--text text--darken-3">
+              <div class="mb-15 text-h3 white--text">
                 Login
               </div>
             </v-row>
@@ -16,6 +16,7 @@
                 type="text"
                 append-icon="mdi-account"
                 required
+                dark
               ></v-text-field>
               <v-text-field
                 v-model="user.password"
@@ -23,21 +24,23 @@
                 :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="isPasswordShown ? 'text' : 'password'"
                 required
+                dark
                 @click:append="isPasswordShown = !isPasswordShown"
               ></v-text-field>
-              <div class="text-center mb-8">
+              <div class="text-center ma-8">
                 <v-btn
-                  width="100%"
+                  width="70%"
                   type="submit"
-                  class="primary"
+                  class="white--text red accent-2 rounded-xl"
                   :disabled="isFormLoading"
                   :loading="isFormLoading"
                   @click.prevent="login"
-                  >Login</v-btn
+                  >Masuk</v-btn
                 >
               </div>
-              <div class="text-center">
-                <router-link :to="{ name: 'Register' }">Register</router-link>
+              <div class="text-center white--text">
+                Belum memiliki akun?
+                <router-link :to="{ name: 'Register' }"><b>Register</b></router-link>
               </div>
               <div class="red--text mt-8" :hidden="errorMessage.length === 0">
                 {{ errorMessage }}
@@ -64,6 +67,7 @@ export default {
     user: new UserModel(),
     isPasswordShown: false,
     errorMessage: "",
+    colorTheme: "#4F4F68",
   }),
   methods: {
     async login() {
@@ -89,10 +93,3 @@ export default {
   mixins: [formInputMixin, errorMixin],
 };
 </script>
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap");
-.font {
-  font-family: Lobster Two;
-  font-size: 40px;
-}
-</style>

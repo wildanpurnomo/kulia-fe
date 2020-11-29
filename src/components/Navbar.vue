@@ -66,7 +66,7 @@ export default {
   },
   data: () => ({
     isDrawer: false,
-    colorTheme: "primary",
+    colorTheme: "#4F4F68",
     pageTitle: ''
   }),
   methods: {
