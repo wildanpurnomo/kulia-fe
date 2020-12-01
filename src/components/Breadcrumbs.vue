@@ -1,37 +1,36 @@
 <template>
-<div class="pl-13">
+  <div class="pl-13">
     <v-breadcrumbs large>
-        <v-breadcrumbs-item
-            :items="items"
-            :href="items.path"
-            :disabled="items.disabled"
-        >{{ items.meta.value }}</v-breadcrumbs-item>
+      <v-breadcrumbs-item
+        :items="items"
+        :href="items.path"
+        :disabled="items.disabled"
+        >{{ items.meta.value }}</v-breadcrumbs-item
+      >
     </v-breadcrumbs>
     <v-divider></v-divider>
-</div>
-
+  </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return{
-            items: [],
-        };
+  data() {
+    return {
+      items: [],
+    };
+  },
+  watch: {
+    $route() {
+      this.getRoute();
     },
-    watch: {
-        $route(){
-            this.getRoute();
-        },
+  },
+  methods: {
+    getRoute() {
+      this.items = this.$route;
     },
-    methods: {
-        getRoute() {
-            this.items = this.$route;
-            console.log(this.$route);
-        },
-    },
-    created () {
-        this.getRoute();
-    },
-}
+  },
+  created() {
+    this.getRoute();
+  },
+};
 </script>

@@ -2,7 +2,7 @@
   <v-container fill-height>
     <v-row align="center">
       <v-col cols="6" class="hidden-sm-and-down">
-        <v-img src="../assets/image.png"></v-img>
+        <v-img src="@/assets/image.png"></v-img>
       </v-col>
       <v-spacer></v-spacer>
       <v-col cols="6" class="pa-15 xs-12">
