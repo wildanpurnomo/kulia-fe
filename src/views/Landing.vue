@@ -2,23 +2,32 @@
 <v-main class="grey lighten-3">
   <v-container fill-height>
     <v-row align="center">
-      <v-col cols="6">
+      <v-col cols="6" class="hidden-sm-and-down">
         <v-img src="../assets/image.png"></v-img>
       </v-col>
       <v-spacer></v-spacer>
-      <v-col cols="5">
+      <v-col cols="6" class="pa-15 xs-12">
         <v-card-title class="font blue-grey--text text--darken-3">
           Wappita
         </v-card-title>
-        <v-card-text class="pt-2" width="100">
-          tugastugastugastugastugastugastugastugas tugastugastugastugastugastugastugas tugastugastugastugas
+        <v-card-text class="pt-2 text-subtitle-1" width="100">
+          Bagikan dan temukan pengetahuan baru. Perluas pengetahuan anda dengan membaca berbagai konten yang menarik.
         </v-card-text>
         <v-row class="pl-8 pt-6">
           <div class="mr-8">
-            <v-btn class="white--text red accent-2 rounded-xl" outlined :to="{ name: 'Login' }">Login</v-btn>
+            <v-btn
+              class="white--text red accent-2 rounded-xl"
+              outlined
+              width="100"
+              :to="{ name: 'Login' }"
+            >Masuk</v-btn>
           </div>
           <div>
-            <v-btn class="blue-grey--text text--darken-3 rounded-xl" outlined :to="{ name: 'Register' }">Daftar</v-btn>
+            <v-btn
+              class="blue-grey--text text--darken-3 rounded-xl"
+              outlined
+              :to="{ name: 'Register' }"
+            >Register</v-btn>
           </div>
         </v-row> 
       </v-col>
@@ -41,6 +50,6 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap');
 .font{
   font-family: Lobster Two;
-  font-size: 40px;
+  font-size: 50px;
 }
 </style>

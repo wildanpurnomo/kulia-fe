@@ -1,6 +1,7 @@
 <template>
   <div>
     <MainNavbar :pages="children" />
+    <Breadcrumbs />
     <Snackbar :duration="3000" />
     <router-view></router-view>
   </div>
@@ -8,6 +9,7 @@
 <script>
 import Snackbar from "@/components/Snackbar";
 import MainNavbar from "@/components/Navbar.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import { EventBus } from "@/bus";
 import PageModel from "@/models/page.model";
 
@@ -16,6 +18,7 @@ export default {
   components: {
     MainNavbar,
     Snackbar,
+    Breadcrumbs,
   },
   data: () => ({
     currentPageName: "Beranda",
