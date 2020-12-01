@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fill-height>
     <v-row justify="center">
       <v-col cols="8" class="pa-10 grey lighten-3 rounded-lg">
         <v-card-title class="font blue-grey--text text--darken-3 mb-2">
@@ -109,6 +109,6 @@ export default {
 <style>
 .font {
   font-family: "Roboto", sans-serif;
-  font-size: 40px;
+  font-size: 30px;
 }
 </style>
