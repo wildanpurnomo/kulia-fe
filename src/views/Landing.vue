@@ -1,9 +1,8 @@
 <template>
-<v-main class="grey lighten-3">
   <v-container fill-height>
     <v-row align="center">
       <v-col cols="6" class="hidden-sm-and-down">
-        <v-img src="../assets/image.png"></v-img>
+        <v-img src="@/assets/image.png"></v-img>
       </v-col>
       <v-spacer></v-spacer>
       <v-col cols="6" class="pa-15 xs-12">
@@ -29,11 +28,10 @@
               :to="{ name: 'Register' }"
             >Register</v-btn>
           </div>
-        </v-row> 
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
-</v-main>
 </template>
 <script>
 export default {
@@ -47,8 +45,8 @@ export default {
 };
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap');
-.font{
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap");
+.font {
   font-family: Lobster Two;
   font-size: 50px;
 }

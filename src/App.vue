@@ -1,15 +1,16 @@
 <template>
   <v-app>
-    <router-view></router-view>
+    <v-main class="blue-grey lighten-5">
+      <router-view></router-view>
+    </v-main>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
 
-  components: {
-  },
+  components: {},
 
   data: () => ({
     //
