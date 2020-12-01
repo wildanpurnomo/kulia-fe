@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export default class BaseService {
     constructor() {
-        this.baseUrl = process.env.VUE_APP_API_BASE_URL;
-        //this.baseUrl = 'http://localhost:3000/api';
+        //this.baseUrl = process.env.VUE_APP_API_BASE_URL;
+        this.baseUrl = 'http://localhost:4000/api';
     }
 
     sendAPIRequest(endpoint, method = 'GET', requestBody = null) {
@@ -16,7 +16,7 @@ export default class BaseService {
         } else if (method === 'PUT') {
             result = axios.put(`${this.baseUrl}${endpoint}`, requestBody);
         } else if (method === 'DELETE') {
-            result = axios.delete(`${this.baseUrl}${endpoint}`, requestBody);
+            result = axios.delete(`${this.baseUrl}${endpoint}`);
         }
         return result
             .then(

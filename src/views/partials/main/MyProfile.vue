@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container>
     <v-row justify="center">
       <v-col cols="8" class="pa-10 grey lighten-3 rounded-lg">
         <v-card-title class="font blue-grey--text text--darken-3 mb-2">

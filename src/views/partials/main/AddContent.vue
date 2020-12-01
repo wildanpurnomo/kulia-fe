@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container>
     <v-row justify="center">
       <v-col cols="8">
         <div class="text-h5">
@@ -107,7 +107,9 @@ export default {
         this.contentData = this.detailContent;
       }
     }
-    EventBus.$emit("onPageChange", "Konten Saya");
+  },
+  mounted() {
+    EventBus.$emit("onPageChange", "Tambah Konten");
   },
   mixins: [formInputMixin],
 };
