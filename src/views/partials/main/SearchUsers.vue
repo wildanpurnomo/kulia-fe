@@ -110,21 +110,13 @@ export default {
   methods: {
     async discoverUsers() {
       try {
-        this.$router.replace(
-          { name: "SearchUser" },
-          {
-            query: {
-              username: this.searchQuery,
-            },
-          }
-        );
         let response = await this.$store.dispatch(
           "story/discoverUsers",
           this.searchQuery
         );
         if (response.status === 200) {
-          this.$router.push({ query: { username: this.searchQuery } });
           this.searchResultList = response.data.data;
+          this.$router.push({ query: { username: this.searchQuery } }, () => console.log("Finished"));
         }
       } catch (error) {
         EventBus.$emit("onShowSnackbar", "Gagal mengambil data beranda");
@@ -136,7 +128,7 @@ export default {
           followingId: userId,
         });
         if (response.status === 200) {
-          EventBus.$emit("onFollowChange");
+          this.$store.dispatch("story/getPersonalStories");
           this.discoverUsers();
         }
       } catch (error) {
@@ -151,7 +143,7 @@ export default {
           this.unfollowingData
         );
         if (response.status === 200) {
-          EventBus.$emit("onFollowChange");
+          this.$store.dispatch("story/getPersonalStories");
           this.isDeleteDialogShown = false;
           this.discoverUsers();
         }

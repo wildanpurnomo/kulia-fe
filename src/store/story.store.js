@@ -65,6 +65,30 @@ export const story = {
                     error => { return Promise.reject(error); }
                 )
         },
+        shareContent({ commit }, sharingData) {
+            return StoryService.shareContent(sharingData)
+                .then(
+                    response => {
+                        commit('updatePersonalStories', response.data.data);
+                        return Promise.resolve(response);
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                )
+        },
+        updateAuthorPoints({ commit }, updateData) {
+            return StoryService.updateAuthorPoints(updateData)
+                .then(
+                    response => {
+                        commit('doNothing');
+                        return Promise.resolve(response);
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                )
+        },
         resetState({ commit }) {
             commit('resetState');
         }
@@ -78,7 +102,7 @@ export const story = {
         },
         resetState(state) {
             state.personalFollowingList = [],
-            state.personalStories = []
+                state.personalStories = []
         },
         doNothing() {
         }

@@ -9,42 +9,65 @@
               Bagikan lebih banyak konten untuk lebih banyak poin
             </div>
           </v-card-text>
-          <v-card-action>
-            <v-row align="center" justify="end" class="pr-5 pb-5">
-              <v-btn text color="primary" :to="{ name: `AddContent`}">Buat Konten</v-btn>
+          <v-card-actions>
+            <v-row align="center" justify="end">
+              <v-btn text color="primary" :to="{ name: `AddContent` }"
+                >Buat Konten</v-btn
+              >
             </v-row>
-          </v-card-action>
+          </v-card-actions>
         </v-card>
       </v-col>
       <v-col>
         <v-row v-for="(item, index) in personalStories" :key="index">
           <v-card
             width="100%"
-            :class="index === personalStories.length - 1 ? `mb-0` : `mb-5`"
+            :class="{
+              'ml-5': $vuetify.breakpoint.smAndDown,
+              'mr-5': $vuetify.breakpoint.smAndDown,
+              'mb-5': index !== personalStories.length - 1,
+              'mb-0': index === personalStories.length - 1,
+            }"
+            v-if="item.sharerId"
           >
-            <v-list-item class="grow">
+            <v-list-item>
               <v-list-item-avatar>
                 <v-img
-                  :src="item.creatorId.profilePicUrl"
-                  alt="profilePicUrl"
+                  :src="item.sharerId.profilePicUrl"
+                  alt="profilePicUrlSharer"
                 ></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title>{{
-                  item.creatorId.username
-                }}</v-list-item-title>
+                <v-list-item-title
+                  ><span class="font-weight-bold"
+                    >{{ item.sharerId.username }}
+                  </span>
+                  <span class="text-body-2 font-weight-normal"
+                    >membagikan konten</span
+                  ></v-list-item-title
+                >
                 <v-list-item-subtitle>
                   {{ getTimestampToRelativeTime(item.createdAt) }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-
-            <v-card-text>
-              <div>
-                {{ item.title }}
-              </div>
-              <div>{{ item.description }}</div>
+            <v-card-text v-if="item.caption.length > 0">
+              <div>{{ item.caption }}</div>
             </v-card-text>
+            <v-divider></v-divider>
+            <UserContent :contentData="item.contentId" />
+          </v-card>
+          <v-card
+            width="100%"
+            :class="{
+              'ml-5': $vuetify.breakpoint.smAndDown,
+              'mr-5': $vuetify.breakpoint.smAndDown,
+              'mb-5': index !== personalStories.length - 1,
+              'mb-0': index === personalStories.length - 1,
+            }"
+            v-else
+          >
+            <UserContent :contentData="item" />
           </v-card>
         </v-row>
       </v-col>
@@ -54,13 +77,19 @@
 <script>
 import { EventBus } from "@/bus";
 import dateTimeMixin from "@/mixins/datetime.mixin";
+import UserContent from "@/components/UserContent.vue";
 
 export default {
   name: "Home",
 
-  components: {},
+  components: {
+    UserContent,
+  },
 
-  data: () => ({}),
+  data: () => ({
+    isShareToHomeDialogShown: false,
+    isShareToSocialDialogShown: false,
+  }),
   computed: {
     personalStories() {
       return this.$store.getters["story/personalStories"];

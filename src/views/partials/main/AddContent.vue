@@ -71,6 +71,7 @@ export default {
           : "content/createContent";
         let response = await this.$store.dispatch(endpoint, this.contentData);
         if (response.status === 200) {
+          this.$store.dispatch("story/getPersonalStories");
           this.isFormLoading = false;
           let message = this.isEdit
             ? "Berhasil perbarui konten"
