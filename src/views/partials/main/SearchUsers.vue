@@ -1,45 +1,69 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
+    <v-row class="d-flex justify-center">
+      <v-col cols="8">
         <v-form ref="searchUsersForm" @submit.prevent="discoverUsers">
           <v-text-field
             v-model="searchQuery"
             outlined
+            dense
             label="Cari username"
             append-icon="mdi-magnify"
+            rounded
           ></v-text-field>
         </v-form>
       </v-col>
-    </v-row>
-    <v-row v-for="(item, index) in searchResultList" :key="index">
-      <v-col cols="8">
-        <v-avatar>
-          <img :src="item.profilePicUrl" alt="profilePicUrl" />
-        </v-avatar>
-        <span class="text-h6 ml-8">{{ item.username }}</span>
+      <v-col
+        cols="8"
+        v-for="(item, index) in searchResultList"
+        :key="index"
+        class="mb-3 white rounded-lg"
+      >
+        <v-row>
+          <v-col cols="8" class="pl-5">
+            <v-avatar>
+              <img :src="item.profilePicUrl" alt="profilePicUrl" />
+            </v-avatar>
+            <span class="text-h6 ml-8">{{ item.username }}</span>
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col class="pr-5 d-flex align-center">
+            <v-btn
+              v-if="!item.isFollowedByUser && item._id != userData._id"
+              @click="followUser(item._id)"
+              class="white--text blue-grey darken-3 rounded-xl"
+              outlined
+              width ="120"
+            >Ikuti</v-btn>
+            <v-btn
+              v-if="item.isFollowedByUser && item._id != userData._id"
+              @click="displayUnfollowConfirmation(item)"
+              class="red--text text--accent-2 rounded-xl"
+              outlined
+            >Unfollow</v-btn>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-col cols="4" class="text-end">
-        <v-btn
-          text
-          color="primary"
-          v-if="!item.isFollowedByUser && item._id != userData._id"
-          @click="followUser(item._id)"
-        >
-          <v-icon>mdi-plus</v-icon>
-          <span class="hidden-sm-and-down">Ikuti</span>
-        </v-btn>
-        <v-btn
-          text
-          color="red"
-          v-if="item.isFollowedByUser && item._id != userData._id"
-          @click="displayUnfollowConfirmation(item)"
-        >
-          <v-icon>mdi-delete</v-icon>
-          <span class="hidden-sm-and-down">Unfollow</span>
-        </v-btn>
-      </v-col>
     </v-row>
+    <v-tooltip left>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          fab
+          large
+          dark
+          bottom
+          right
+          fixed
+          v-bind="attrs"
+          v-on="on"
+          :color="colorTheme"
+          :to="{ name: 'MyFollowing' }"
+        >
+          <v-icon>mdi-account-multiple</v-icon>
+        </v-btn>
+      </template>
+      <span>List Author Diikuti</span>
+    </v-tooltip>
     <v-dialog v-model="isDeleteDialogShown" max-width="500" persistent>
       <v-card>
         <v-card-title class="headline">Konfirmasi unfollow</v-card-title>
@@ -69,6 +93,7 @@ export default {
   components: {},
 
   data: () => ({
+    colorTheme: "#4F4F68",
     searchQuery: "",
     searchResultList: [],
     isDeleteDialogShown: false,
