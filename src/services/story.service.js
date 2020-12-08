@@ -24,6 +24,14 @@ class StoryService extends BaseService {
     unfollowUser(unfollowingData) {
         return this.sendAPIRequest('/story/unfollow', 'POST', unfollowingData);
     }
+
+    shareContent(sharingData) {
+        return this.sendAPIRequest('/story/share_content', 'POST', sharingData);
+    }
+
+    updateAuthorPoints(updateAuthorData) {
+        return this.sendAPIRequest('/story/update_author_points', 'PUT', updateAuthorData);
+    }
 }
 
 export default new StoryService();

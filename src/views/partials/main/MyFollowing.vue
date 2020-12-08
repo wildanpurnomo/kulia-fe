@@ -121,7 +121,7 @@ export default {
           this.unfollowingData
         );
         if (response.status === 200) {
-          EventBus.$emit("onFollowChange");
+          this.$store.dispatch("story/getPersonalStories");
           this.isDeleteDialogShown = false;
           EventBus.$emit("onShowSnackbar", "Berhasil unfollow");
         }

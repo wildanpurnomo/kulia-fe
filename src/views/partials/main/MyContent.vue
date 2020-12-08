@@ -20,7 +20,7 @@
         <v-row>
           <v-col cols="8" class="pa-1 pl-5">
             <div class="text-h6">{{ item.title }}</div>
-            <span>Dibagikan {{ item.sharedBy.length }} kali</span>
+            <span>Dibagikan {{ item.sharedBy.length }} author</span>
           </v-col>
 
           <v-spacer></v-spacer>
