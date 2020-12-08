@@ -20,6 +20,14 @@ class AuthService extends BaseService {
     authenticate() {
         return this.sendAPIRequest('/auth/authenticate', 'GET');
     }
+
+    editProfile(userData) {
+        return this.sendAPIRequest('/user/edit_profile', 'PUT', userData);
+    }
+
+    editPassword(userData) {
+        return this.sendAPIRequest('/user/edit_password', 'POST', userData)
+    }
 }
 
 export default new AuthService();

@@ -1,24 +1,23 @@
 <template>
   <v-container>
     <v-row justify="center">
-<!-- search       -->
       <v-col cols="8">
         <v-text-field
           v-model="searchQuery"
           outlined
+          dense
           label="Cari judul konten"
           append-icon="mdi-magnify"
           rounded
         ></v-text-field>
       </v-col>
-<!-- list konten -->
       <v-col
         cols="8"
-        class="ma-2 grey lighten-3 rounded-lg"
+        class="mb-3 white rounded-lg d-flex align-center"
         v-for="(item, index) in personalContentList"
         :key="index"
       >
-        <v-row align="center">
+        <v-row>
           <v-col cols="8" class="pa-1 pl-5">
             <div class="text-h6">{{ item.title }}</div>
             <span>Dibagikan {{ item.sharedBy.length }} kali</span>
@@ -31,7 +30,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     text
-                    class="red accent-2"
+                    class="blue-grey darken-3"
                     fab
                     small
                     dark
@@ -50,7 +49,7 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    class="blue-grey--text text--darken-3"
+                    class="red--text text--accent-2"
                     fab
                     small
                     outlined
@@ -73,7 +72,7 @@
       <v-card class="pa-3">
         <v-card-title class="headline">Konfirmasi penghapusan</v-card-title>
         <v-card-text class="text-subtitle-2">{{
-          `Apakah anda yakin ingin menhapus konten dengan judul ${toBeDeleted.title}?`
+          `Apakah anda yakin ingin menghapus konten dengan judul ${toBeDeleted.title}?`
         }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

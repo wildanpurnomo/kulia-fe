@@ -30,18 +30,25 @@ export const mainRouter = {
             path:'/my-profile',
             name: 'MyProfile',
             component: () => import('@/views/partials/main/MyProfile.vue'),
-            meta: {value:'Profil Saya'},
+            meta: {value:'Edit Profil'},
         },
         {
             path:'/my-following',
             name: 'MyFollowing',
             component: () => import('@/views/partials/main/MyFollowing.vue'),
-            meta: {value:'Saya Ikuti'},
+            meta: {value:'Daftar Author Diikuti'},
         },
         {
             path: '/search-user/',
             name: 'SearchUser',
-            component: () => import('@/views/partials/main/SearchUsers.vue')
-        }
+            component: () => import('@/views/partials/main/SearchUsers.vue'),
+            meta: {value:'Tambah Author'},
+        },
+        {
+            path:'/edit-password',
+            name: 'EditPassword',
+            component: () => import('@/views/partials/main/EditPassword.vue'),
+            meta: {value:'Edit Password'},
+        },
     ]
 }

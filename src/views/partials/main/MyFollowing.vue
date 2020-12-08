@@ -1,58 +1,59 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-card class="primary">
-          <v-row>
-            <v-col md="10" xs="10">
-              <div class="white--text text-h5 ml-3">Daftar Author Diikuti</div>
-            </v-col>
-            <v-col md="2" xs="2" class="text-end">
-              <v-btn
-                text
-                dark
-                dense
-                style="text-transform: capitalize"
-                :to="{ name: 'SearchUser' }"
-              >
-                <v-icon>mdi-magnify</v-icon>
-                <span class="white--text text-h6 hidden-sm-and-down"
-                  >Cari Author</span
-                >
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-col>
-      <v-col cols="12">
+    <v-row class="d-flex justify-center">
+      <v-col cols="8">
         <v-text-field
           v-model="searchQuery"
           outlined
+          dense
           label="Cari username"
           append-icon="mdi-magnify"
+          rounded
         ></v-text-field>
       </v-col>
-      <v-col cols="12" v-for="(item, index) in personalFollowingList" :key="index">
+      <v-col
+        cols="8"
+        v-for="(item, index) in personalFollowingList"
+        :key="index"
+        class="mb-3 white rounded-lg"
+      >
         <v-row>
-          <v-col cols="8">
+          <v-col cols="8" class="pl-5">
             <v-avatar>
               <img :src="item.profilePicUrl" alt="profilePicUrl" />
             </v-avatar>
-            <span class="text-h6 ml-8">{{ item.username }}</span>
+            <span class="text-h6 ml-4">{{ item.username }}</span>
           </v-col>
-          <v-col cols="4" class="text-end">
+          <v-spacer></v-spacer>
+          <v-col class="pr-5 d-flex align-center">
             <v-btn
               @click="displayDeleteConfirmationDialog(item)"
-              text
-              color="red"
-            >
-              <v-icon>mdi-delete</v-icon>
-              <span class="hidden-sm-and-down">Unfollow</span>
-            </v-btn>
+              class="red--text text--accent-2 rounded-xl"
+              outlined
+            >Unfollow</v-btn>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
+    <v-tooltip left>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          fab
+          large
+          dark
+          bottom
+          right
+          fixed
+          v-bind="attrs"
+          v-on="on"
+          :color="colorTheme"
+          :to="{ name: 'SearchUser' }"
+        >
+          <v-icon>mdi-account-multiple-plus</v-icon>
+        </v-btn>
+      </template>
+      <span>Temukan Author Baru</span>
+    </v-tooltip>
     <v-dialog v-model="isDeleteDialogShown" max-width="500" persistent>
       <v-card>
         <v-card-title class="headline">Konfirmasi unfollow</v-card-title>
@@ -65,8 +66,7 @@
             color="blue darken-1"
             text
             @click="isDeleteDialogShown = !isDeleteDialogShown"
-            >Batal</v-btn
-          >
+          >Batal</v-btn>
           <v-btn color="blue darken-1" text @click="unfollowUser">Ya</v-btn>
         </v-card-actions>
       </v-card>
@@ -82,6 +82,7 @@ export default {
   components: {},
 
   data: () => ({
+    colorTheme: "#4F4F68",
     searchQuery: "",
     isDeleteDialogShown: false,
     unfollowingData: {

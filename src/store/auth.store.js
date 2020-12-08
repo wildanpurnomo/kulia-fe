@@ -53,6 +53,30 @@ export const auth = {
                     error => { return Promise.reject(error); }
                 )
         },
+        editProfile({ commit }, userData) {
+            return AuthService.editProfile(userData)
+                .then(
+                    response => {
+                        commit('authSuccess', response.data.data);
+                        return Promise.resolve(response);
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                )
+        },
+        editPassword({ commit }, userData) {
+            return AuthService.editPassword(userData)
+                .then(
+                    response => {
+                        commit('authSuccess', response.data.data);
+                        return Promise.resolve(response);
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                )
+        },
     },
     mutations: {
         authSuccess(state, userData) {

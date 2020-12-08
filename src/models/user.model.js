@@ -4,5 +4,8 @@ export default class User {
         this.password = '';
         this.passwordConfirmation = '';
         this.email = '';
+        this.oldPassword = '';
+        this.newPassword = '';
+        this.newPasswordConfirmation = '';
     }
 }

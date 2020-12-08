@@ -109,7 +109,7 @@ export default {
     }
   },
   mounted() {
-    EventBus.$emit("onPageChange", "Tambah Konten");
+    EventBus.$emit("onPageChange", "Konten Saya");
   },
   mixins: [formInputMixin],
 };
