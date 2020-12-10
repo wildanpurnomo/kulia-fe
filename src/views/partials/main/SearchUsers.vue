@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <v-form ref="searchUsersForm" @submit.prevent="discoverUsers">
           <v-text-field
             v-model="searchQuery"
@@ -14,33 +14,42 @@
         </v-form>
       </v-col>
       <v-col
-        cols="8"
+        cols="11"
+        md="8"
         v-for="(item, index) in searchResultList"
         :key="index"
-        class="mb-3 white rounded-lg"
+        class="mb-3 px-5 py-1 white rounded-lg"
       >
         <v-row>
-          <v-col cols="8" class="pl-5">
+          <v-col cols="2" md="1">
             <v-avatar>
               <img :src="item.profilePicUrl" alt="profilePicUrl" />
             </v-avatar>
-            <span class="text-h6 ml-8">{{ item.username }}</span>
           </v-col>
-          <v-spacer></v-spacer>
-          <v-col class="pr-5 d-flex align-center">
+          <v-col class="d-flex align-center">
+            <span class="text-md-h6 text-sm-subtitle pl-3">{{ item.username }}</span>
+          </v-col>
+          <v-col class="d-flex align-center justify-end">
             <v-btn
               v-if="!item.isFollowedByUser && item._id != userData._id"
               @click="followUser(item._id)"
-              class="white--text blue-grey darken-3 rounded-xl"
-              outlined
-              width ="120"
-            >Ikuti</v-btn>
+              class="rounded-xl"
+              dark
+              depressed
+              :color="colorTheme"
+            >
+              <v-icon class="hidden-sm-and-up">mdi-account-multiple-plus</v-icon>
+              <span class="hidden-sm-and-down px-5">Ikuti</span>
+            </v-btn>
             <v-btn
               v-if="item.isFollowedByUser && item._id != userData._id"
               @click="displayUnfollowConfirmation(item)"
               class="red--text text--accent-2 rounded-xl"
               outlined
-            >Unfollow</v-btn>
+            >
+              <v-icon class="hidden-sm-and-up">mdi-account-multiple-minus</v-icon>
+              <span class="hidden-sm-and-down">Unfollow</span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -73,12 +82,12 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
+            :color="colorTheme"
             text
             @click="isDeleteDialogShown = !isDeleteDialogShown"
             >Batal</v-btn
           >
-          <v-btn color="blue darken-1" text @click="unfollowUser">Ya</v-btn>
+          <v-btn :color="colorTheme" text @click="unfollowUser">Ya</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -93,7 +102,7 @@ export default {
   components: {},
 
   data: () => ({
-    colorTheme: "#4F4F68",
+    colorTheme: "#394867",
     searchQuery: "",
     searchResultList: [],
     isDeleteDialogShown: false,

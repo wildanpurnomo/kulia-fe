@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list-item>
+    <v-list-item  class="my-1">
       <v-list-item-avatar>
         <v-img
           :src="contentData.creatorId.profilePicUrl"
@@ -16,81 +16,103 @@
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-
+    <v-divider></v-divider>
     <v-card-text>
-      <div>
+      <div class="text-subtitle-1 font-weight-bold">
         {{ contentData.title }}
       </div>
-      <div>{{ contentData.description }}</div>
+      <div class="text-body-2">{{ contentData.description }}</div>
     </v-card-text>
-
     <v-card-actions v-show="contentData.creatorId._id !== userData._id">
       <v-row justify="end" :class="{ 'mr-1': $vuetify.breakpoint.mdAndUp }">
-        <v-btn text color="primary" @click="isShareToSocialDialogShown = true">
-          <v-icon>mdi-share-variant</v-icon>
-          <span class="hidden-sm-and-down">Medsos</span></v-btn
-        >
-        <v-btn text color="primary" @click="isShareToHomeDialogShown = true">
-          <v-icon>mdi-share-circle</v-icon>
-          <span class="hidden-sm-and-down">Beranda</span></v-btn
-        >
-      </v-row>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">   
+            <v-btn
+              text
+              v-bind="attrs"
+              v-on="on"
+              :color="colorTheme"
+              @click="isShareToSocialDialogShown = true"
+            >
+              <v-icon>mdi-share-variant</v-icon>
+              <!-- <span class="hidden-sm-and-down">Medsos</span> -->
+            </v-btn>
+          </template>
+          <span>Bagikan ke Medsos</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              text
+              v-bind="attrs"
+              v-on="on"
+              :color="colorTheme"
+              @click="isShareToHomeDialogShown = true"
+            >
+              <v-icon>mdi-share-circle</v-icon>
+              <!-- <span class="hidden-sm-and-down">Beranda</span> -->
+            </v-btn>
+          </template>
+          <span>Bagikan ke Beranda</span>
+        </v-tooltip>
+      </v-row>   
     </v-card-actions>
     <v-dialog v-model="isShareToHomeDialogShown" max-width="500">
       <v-card>
-        <v-card-title
-          ><span class="headline">Bagikan ke Beranda</span></v-card-title
-        >
-        <div class="ml-5 mr-5">
+        <v-card-title>
+          <span class="h6">Bagikan ke Beranda</span>
+        </v-card-title>
+        <v-divider></v-divider>
+        <div class="mx-5">
           <v-textarea
             v-model="shareContentRequestObject.caption"
             auto-grow
-            outlined
             label="Tulis caption"
           ></v-textarea>
         </div>
-        <v-divider></v-divider>
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-img
-              :src="contentData.creatorId.profilePicUrl"
-              alt="profilePicUrlCreator"
-            ></v-img>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title>{{
-              contentData.creatorId.username
-            }}</v-list-item-title>
-            <v-list-item-subtitle>
-              {{ getTimestampToRelativeTime(contentData.createdAt) }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-card-text>
-          <div>
-            {{ contentData.title }}
-          </div>
-          <div>{{ contentData.description }}</div>
-        </v-card-text>
+        <v-card class="mx-3 mb-4 rounded-lg" outlined flat>
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-img
+                :src="contentData.creatorId.profilePicUrl"
+                alt="profilePicUrlCreator"
+              ></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title>{{
+                contentData.creatorId.username
+              }}</v-list-item-title>
+              <v-list-item-subtitle>
+                {{ getTimestampToRelativeTime(contentData.createdAt) }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-card-text>
+            <div>
+              {{ contentData.title }}
+            </div>
+            <div>{{ contentData.description }}</div>
+          </v-card-text>
+        </v-card>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
             text
-            color="primary"
+            :color="colorTheme"
             :loading="isLoadingOnShare"
             @click="shareContent"
-            >Bagikan</v-btn
-          >
+            >Bagikan</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog v-model="isShareToSocialDialogShown" max-width="500">
       <v-card>
-        <v-card-title
-          ><span class="headline">Bagikan ke Sosmed</span></v-card-title
-        >
-        <v-card-text>
+        <v-card-title>
+          <span class="h6">Bagikan ke Sosmed</span>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="mt-5">
           <v-row>
             <v-col align="center">
               <ShareNetwork
@@ -103,7 +125,7 @@
               >
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" text v-bind="attrs" v-on="on">
+                    <v-btn :color="colorTheme" text v-bind="attrs" v-on="on">
                       <v-icon size="32">{{ item.icon }}</v-icon>
                     </v-btn>
                   </template>
@@ -113,7 +135,7 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    color="primary"
+                    :color="colorTheme"
                     text
                     v-bind="attrs"
                     v-on="on"
@@ -143,6 +165,7 @@ export default {
     contentData: Object,
   },
   data: () => ({
+    colorTheme: "#394867",
     isShareToHomeDialogShown: false,
     isShareToSocialDialogShown: false,
     shareContentRequestObject: {

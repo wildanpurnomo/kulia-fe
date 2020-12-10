@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <v-text-field
           v-model="searchQuery"
           outlined
@@ -12,25 +12,30 @@
         ></v-text-field>
       </v-col>
       <v-col
-        cols="8"
+        cols="11"
+        md="8"
         v-for="(item, index) in personalFollowingList"
         :key="index"
-        class="mb-3 white rounded-lg"
+        class="mb-3 px-5 py-1 white rounded-lg"
       >
         <v-row>
-          <v-col cols="8" class="pl-5">
+          <v-col cols="2" md="1">
             <v-avatar>
               <img :src="item.profilePicUrl" alt="profilePicUrl" />
             </v-avatar>
-            <span class="text-h6 ml-4">{{ item.username }}</span>
           </v-col>
-          <v-spacer></v-spacer>
-          <v-col class="pr-5 d-flex align-center">
+          <v-col class="d-flex align-center">
+            <span class="text-md-h6 text-sm-subtitle pl-3">{{ item.username }}</span>
+          </v-col>
+          <v-col class="d-flex align-center justify-end">
             <v-btn
               @click="displayDeleteConfirmationDialog(item)"
               class="red--text text--accent-2 rounded-xl"
               outlined
-            >Unfollow</v-btn>
+            >
+              <v-icon class="hidden-sm-and-up">mdi-account-multiple-minus</v-icon>
+              <span class="hidden-sm-and-down">Unfollow</span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -56,18 +61,19 @@
     </v-tooltip>
     <v-dialog v-model="isDeleteDialogShown" max-width="500" persistent>
       <v-card>
-        <v-card-title class="headline">Konfirmasi unfollow</v-card-title>
-        <v-card-text>{{
-          `Anda akan unfollow ${unfollowingData.unfollowingUsername}`
-        }}</v-card-text>
+        <v-card-title class="text-md-h6 text-sm-subtitle">Konfirmasi unfollow</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="mt-5">
+          {{ `Anda akan unfollow ${unfollowingData.unfollowingUsername}` }}
+        </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
+            :color="colorTheme"
             text
             @click="isDeleteDialogShown = !isDeleteDialogShown"
           >Batal</v-btn>
-          <v-btn color="blue darken-1" text @click="unfollowUser">Ya</v-btn>
+          <v-btn :color="colorTheme" text @click="unfollowUser">Ya</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -82,7 +88,7 @@ export default {
   components: {},
 
   data: () => ({
-    colorTheme: "#4F4F68",
+    colorTheme: "#394867",
     searchQuery: "",
     isDeleteDialogShown: false,
     unfollowingData: {

@@ -2,11 +2,12 @@
   <nav>
     <v-toolbar :color="colorTheme" dark>
       <v-app-bar-nav-icon @click="isDrawer = !isDrawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{ pageTitle }}</v-toolbar-title>
+      <v-toolbar-title class="hidden-md-and-up pl-1">{{ pageTitle }}</v-toolbar-title>
+      <v-toolbar-title class="hidden-md-and-down font pl-3">Wappita</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="logout" text>
-        <span>Logout</span>
-        <v-icon>mdi-exit-to-app</v-icon>
+      <v-btn @click="logout" text class="pr-1">
+        <span class="hidden-sm-and-down">Logout</span>
+        <v-icon>mdi-logout-variant</v-icon>
       </v-btn>
     </v-toolbar>
 
@@ -64,7 +65,7 @@ export default {
   },
   data: () => ({
     isDrawer: false,
-    colorTheme: "#4F4F68",
+    colorTheme: "#394867",
     pageTitle: ''
   }),
   methods: {
@@ -84,3 +85,11 @@ export default {
   },
 };
 </script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap");
+.font {
+  font-family: Lobster Two;
+  font-size: 25px;
+  color: white
+}
+</style>

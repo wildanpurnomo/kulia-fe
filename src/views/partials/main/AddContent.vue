@@ -1,12 +1,12 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="8">
-        <div class="text-h5">
+      <v-col cols="12" md="8">
+        <div class="text-h6 hidden-sm-and-up">
           {{ isEdit ? "Perbarui Konten" : "Tambah Konten Baru" }}
         </div>
       </v-col>
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <v-form ref="contentForm" v-model="isFormValid">
           <v-text-field
             v-model="contentData.title"
@@ -30,13 +30,16 @@
                 :disabled="!isFormValid || isFormLoading"
                 :loading="isFormLoading"
                 type="submit"
-                class="white--text red accent-2 rounded-xl"
+                class="rounded-xl"
+                dark
+                depressed
+                :color="colorTheme"
                 @click.prevent="submitContent"
               >Submit</v-btn>
             </div>
             <div>
               <v-btn
-                class="blue-grey--text text--darken-3 rounded-xl"
+                class="red--text text--accent-2 rounded-xl"
                 outlined
                 :to="{ name: 'MyContent' }"
               >Batal</v-btn>
@@ -54,6 +57,7 @@ import { EventBus } from "@/bus";
 
 export default {
   data: () => ({
+    colorTheme: "#394867",
     isEdit: false,
     contentData: new ContentModel(),
   }),
