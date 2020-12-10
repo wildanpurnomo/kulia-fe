@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row justify="center">
-      <v-col cols="8">
+    <v-row class="d-flex justify-center">
+      <v-col cols="12" md="8">
         <v-text-field
           v-model="searchQuery"
           outlined
@@ -12,26 +12,26 @@
         ></v-text-field>
       </v-col>
       <v-col
-        cols="8"
-        class="mb-3 white rounded-lg d-flex align-center"
+        cols="11"
+        md="8"
+        class="mb-3 px-5 py-1 white rounded-lg d-flex align-center"
         v-for="(item, index) in personalContentList"
         :key="index"
       >
         <v-row>
-          <v-col cols="8" class="pa-1 pl-5">
-            <div class="text-h6">{{ item.title }}</div>
-            <span>Dibagikan {{ item.sharedBy.length }} author</span>
+          <v-col>
+            <div class="text-md-h6 text-sm-h6">{{ item.title }}</div>
+            <span class="text-caption">Dibagikan {{ item.sharedBy.length }} kali</span>
           </v-col>
 
-          <v-spacer></v-spacer>
-          <v-col cols="2" class="pr-8">
+          <v-col cols="4" md="2" class="pr-6 d-flex align-center">
             <v-row>
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    text
-                    class="blue-grey darken-3"
+                    :color="colorTheme"
                     fab
+                    depressed
                     small
                     dark
                     v-bind="attrs"
@@ -39,7 +39,6 @@
                     :to="{ name: 'EditContent', params: { contentId: item._id } }"
                   >
                     <v-icon>mdi-pencil</v-icon>
-                    <span class="hidden-sm-and-down"></span>
                   </v-btn>
                 </template>
                 <span>Edit Konten</span>
@@ -58,7 +57,6 @@
                     @click="displayDeleteConfirmationDialog(item.title, item._id)"
                   >
                     <v-icon>mdi-delete</v-icon>
-                    <span class="hidden-sm-and-down"></span>
                   </v-btn>
                 </template>
                 <span>Hapus Konten</span>
@@ -69,22 +67,24 @@
       </v-col>
     </v-row>
     <v-dialog v-model="isDeleteDialogShown" max-width="500" persistent>
-      <v-card class="pa-3">
-        <v-card-title class="headline">Konfirmasi penghapusan</v-card-title>
-        <v-card-text class="text-subtitle-2">{{
+      <v-card>
+        <v-card-title class="text-md-h6 text-sm-subtitle">Konfirmasi penghapusan</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="mt-5">{{
           `Apakah anda yakin ingin menghapus konten dengan judul ${toBeDeleted.title}?`
         }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
+            :color="colorTheme"
             text
             @click="isDeleteDialogShown = !isDeleteDialogShown"
           >Batal</v-btn
           >
           <v-btn
-            color="blue darken-1"
-            text @click="deleteContent"
+            :color="colorTheme"
+            text
+            @click="deleteContent"
           >Ya</v-btn>
         </v-card-actions>
       </v-card>
@@ -107,12 +107,13 @@ export default {
   },
 
   data: () => ({
+    colorTheme: "#394867",
     searchQuery: "",
     isDeleteDialogShown: false,
     toBeDeleted: {
       id: "",
       title: "",
-      colorTheme: "#4F4F68",
+      colorTheme: "#79a3b1",
     },
   }),
   computed: {

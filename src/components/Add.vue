@@ -28,7 +28,7 @@ export default {
   components: {},
 
   data: () => ({
-    colorTheme: "#4F4F68",
+    colorTheme: "#394867",
     //
   }),
 };

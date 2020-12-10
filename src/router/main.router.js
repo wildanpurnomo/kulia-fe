@@ -44,11 +44,5 @@ export const mainRouter = {
             component: () => import('@/views/partials/main/SearchUsers.vue'),
             meta: {value:'Tambah Author'},
         },
-        {
-            path:'/edit-password',
-            name: 'EditPassword',
-            component: () => import('@/views/partials/main/EditPassword.vue'),
-            meta: {value:'Edit Password'},
-        },
     ]
 }

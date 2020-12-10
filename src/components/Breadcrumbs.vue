@@ -1,10 +1,15 @@
 <template>
-  <div class="pl-13">
+  <div class="pl-13 hidden-sm-and-down">
     <v-breadcrumbs large>
-      <v-breadcrumbs-item
+      <!-- <v-breadcrumbs-item
         :items="items"
         :href="items.path"
         :disabled="items.disabled"
+        >{{ items.meta.value }}</v-breadcrumbs-item
+      >
+    </v-breadcrumbs> -->
+    <v-breadcrumbs-item
+        :items="items"
         >{{ items.meta.value }}</v-breadcrumbs-item
       >
     </v-breadcrumbs>
