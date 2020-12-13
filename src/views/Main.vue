@@ -34,7 +34,10 @@ export default {
   methods: {
     async authenticate() {
       try {
-        await this.$store.dispatch("auth/authenticate");
+        let response = await this.$store.dispatch("auth/authenticate");
+        if (response.status === 200) {
+          EventBus.$emit("onFetchProfileSuccess");
+        }
       } catch (error) {
         this.logout(true);
       }
