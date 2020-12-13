@@ -25,7 +25,7 @@ export default {
     children: [
       new PageModel("Beranda", "mdi-view-dashboard", { name: "Home" }),
       new PageModel("Konten Saya", "mdi-content-paste", { name: "MyContent" }),
-      new PageModel("Mengikuti", "mdi-account-box-multiple", { name: "MyFollowing" }),
+      new PageModel("Temukan Author", "mdi-account-box-multiple", { name: "MyFollowing" }),
       new PageModel("Edit Profil", "mdi-account", { name: "MyProfile" }),
     ],
   }),

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
-      <v-col cols="12" md="8">
+      <v-col cols="9" md="6" class="pl-1">
         <v-text-field
           v-model="searchQuery"
           outlined
@@ -10,6 +10,20 @@
           append-icon="mdi-magnify"
           rounded
         ></v-text-field>
+      </v-col>
+      <v-col cols="2" md="2" class="d-flex justify-end pr-1">
+        <v-btn
+          dark
+          rounded
+          :color="colorTheme"
+          :to="{ name: 'SearchUser' }"
+        >
+          <v-icon class="hidden-sm-and-up">mdi-account-multiple-plus</v-icon>
+          <span class="hidden-sm-and-down">Cari Author baru</span>
+        </v-btn>
+      </v-col>
+      <v-col cols="12" md="7" v-if="personalFollowingList.length <= 0" class="d-flex justify-center">
+      <EmptyView />
       </v-col>
       <v-col
         cols="11"
@@ -40,25 +54,6 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-tooltip left>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          fab
-          large
-          dark
-          bottom
-          right
-          fixed
-          v-bind="attrs"
-          v-on="on"
-          :color="colorTheme"
-          :to="{ name: 'SearchUser' }"
-        >
-          <v-icon>mdi-account-multiple-plus</v-icon>
-        </v-btn>
-      </template>
-      <span>Temukan Author Baru</span>
-    </v-tooltip>
     <v-dialog v-model="isDeleteDialogShown" max-width="500" persistent>
       <v-card>
         <v-card-title class="text-md-h6 text-sm-subtitle">Konfirmasi unfollow</v-card-title>
@@ -81,11 +76,14 @@
 </template>
 <script>
 import { EventBus } from "@/bus";
+import EmptyView from "@/components/EmptyView.vue";
 
 export default {
   name: "MyFollowing",
 
-  components: {},
+  components: {
+    EmptyView,
+  },
 
   data: () => ({
     colorTheme: "#394867",
@@ -140,7 +138,12 @@ export default {
     if (this.personalFollowingList.length === 0) {
       this.getFollowingList();
     }
-    EventBus.$emit("onPageChange", "Saya Ikuti");
+    // EventBus.$emit("onPageChange", "Saya Ikuti");
+    // EventBus.$emit("emptyViewMessage", "Tidak ada list Author yang dapat kami tampilkan, karena kamu belum mengikuti satupun Author.");
   },
+  mounted() {
+    EventBus.$emit("onPageChange", "Saya Ikuti");
+    EventBus.$emit("emptyViewMessage", "Tidak ada list Author yang dapat kami tampilkan, karena kamu belum mengikuti satupun Author.");
+  }
 };
 </script>
