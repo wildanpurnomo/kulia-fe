@@ -3,7 +3,7 @@
     <v-toolbar :color="colorTheme" dark>
       <v-app-bar-nav-icon @click="isDrawer = !isDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="hidden-md-and-up pl-1">{{ pageTitle }}</v-toolbar-title>
-      <v-toolbar-title class="hidden-md-and-down font1 pl-3">Wappita</v-toolbar-title>
+      <v-toolbar-title class="hidden-md-and-down font1 pl-3" @click="$router.push({ name: `Landing` })">Wappita</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn @click="logout" text class="pr-1">
         <span class="hidden-sm-and-down">Logout</span>
@@ -90,6 +90,7 @@ export default {
 .font1 {
   font-family: Lobster Two;
   font-size: 25px;
-  color: white
+  color: white;
+  cursor: pointer;
 }
 </style>

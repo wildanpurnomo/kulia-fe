@@ -18,7 +18,7 @@
           :color="colorTheme"
           :to="{ name: 'SearchUser' }"
         >
-          <v-icon class="hidden-sm-and-up">mdi-account-multiple-plus</v-icon>
+          <v-icon class="hidden-md-and-up">mdi-account-multiple-plus</v-icon>
           <span class="hidden-sm-and-down">Cari Author baru</span>
         </v-btn>
       </v-col>
@@ -47,7 +47,7 @@
               class="red--text text--accent-2 rounded-xl"
               outlined
             >
-              <v-icon class="hidden-sm-and-up">mdi-account-multiple-minus</v-icon>
+              <v-icon class="hidden-md-and-up">mdi-account-multiple-minus</v-icon>
               <span class="hidden-sm-and-down">Unfollow</span>
             </v-btn>
           </v-col>

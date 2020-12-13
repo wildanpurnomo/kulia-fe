@@ -7,22 +7,67 @@
             v-model="searchQuery"
             outlined
             dense
-            label="Cari username"
+            label="Cari username lain (tekan Enter)"
             append-icon="mdi-magnify"
             rounded
           ></v-text-field>
         </v-form>
       </v-col>
       <v-col cols="2" md="2" class="d-flex justify-end pr-1">
-        <v-btn
-          dark
-          rounded
-          :color="colorTheme"
-          :to="{ name: 'MyFollowing' }"
-        >
-          <v-icon class="hidden-sm-and-up">mdi-account-multiple</v-icon>
+        <v-btn dark rounded :color="colorTheme" :to="{ name: 'MyFollowing' }">
+          <v-icon class="hidden-md-and-up">mdi-account-multiple</v-icon>
           <span class="hidden-sm-and-down">Author diikuti</span>
         </v-btn>
+      </v-col>
+      <v-col cols="11" md="8" v-show="!$route.query.username">
+        <h2>Disarankan untuk Anda</h2>
+      </v-col>
+      <v-col
+        cols="11"
+        md="8"
+        v-for="(item, index) in sampleUserList"
+        :key="index"
+        class="mb-3 px-5 py-1 white rounded-lg"
+        v-show="!$route.query.username"
+      >
+        <v-row>
+          <v-col cols="2" md="1">
+            <v-avatar>
+              <img :src="item.profilePicUrl" alt="profilePicUrl" />
+            </v-avatar>
+          </v-col>
+          <v-col class="d-flex align-center">
+            <span class="text-md-h6 text-sm-subtitle pl-3">{{
+              item.username
+            }}</span>
+          </v-col>
+          <v-col class="d-flex align-center justify-end">
+            <v-btn
+              v-if="!item.isFollowedByUser && item._id != userData._id"
+              @click="followUser(item._id)"
+              class="rounded-xl"
+              dark
+              depressed
+              :color="colorTheme"
+            >
+              <v-icon class="hidden-md-and-up"
+                >mdi-account-multiple-plus</v-icon
+              >
+              <span class="hidden-sm-and-down px-5">Ikuti</span>
+            </v-btn>
+            <v-btn
+              v-if="item.isFollowedByUser && item._id != userData._id"
+              @click="displayUnfollowConfirmation(item)"
+              class="red--text text--accent-2 rounded-xl"
+              outlined
+            >
+              <v-icon class="hidden-md-and-up"
+                >mdi-account-multiple-minus</v-icon
+              >
+              <span class="hidden-sm-and-down">Unfollow</span>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col
         cols="11"
@@ -38,7 +83,9 @@
             </v-avatar>
           </v-col>
           <v-col class="d-flex align-center">
-            <span class="text-md-h6 text-sm-subtitle pl-3">{{ item.username }}</span>
+            <span class="text-md-h6 text-sm-subtitle pl-3">{{
+              item.username
+            }}</span>
           </v-col>
           <v-col class="d-flex align-center justify-end">
             <v-btn
@@ -49,7 +96,9 @@
               depressed
               :color="colorTheme"
             >
-              <v-icon class="hidden-sm-and-up">mdi-account-multiple-plus</v-icon>
+              <v-icon class="hidden-sm-and-up"
+                >mdi-account-multiple-plus</v-icon
+              >
               <span class="hidden-sm-and-down px-5">Ikuti</span>
             </v-btn>
             <v-btn
@@ -58,7 +107,9 @@
               class="red--text text--accent-2 rounded-xl"
               outlined
             >
-              <v-icon class="hidden-sm-and-up">mdi-account-multiple-minus</v-icon>
+              <v-icon class="hidden-sm-and-up"
+                >mdi-account-multiple-minus</v-icon
+              >
               <span class="hidden-sm-and-down">Unfollow</span>
             </v-btn>
           </v-col>
@@ -107,17 +158,36 @@ export default {
     userData() {
       return this.$store.getters["auth/userData"];
     },
+    sampleUserList() {
+      return this.$store.getters["story/sampleUserList"];
+    },
   },
   methods: {
+    async fetchSampleUsers() {
+      try {
+        await this.$store.dispatch("story/getSampleUsers");
+      } catch (error) {
+        EventBus.$emit(
+          "onShowSnackbar",
+          "Gagal mengambil daftar pengguna disarankan"
+        );
+      }
+    },
     async discoverUsers() {
       try {
-        let response = await this.$store.dispatch(
-          "story/discoverUsers",
-          this.searchQuery
-        );
-        if (response.status === 200) {
-          this.searchResultList = response.data.data;
-          this.$router.push({ query: { username: this.searchQuery } }, () => console.log("Finished"));
+        if (this.searchQuery.length > 0) {
+          let response = await this.$store.dispatch(
+            "story/discoverUsers",
+            this.searchQuery
+          );
+          if (response.status === 200) {
+            this.searchResultList = response.data.data;
+            this.$router.push({ query: { username: this.searchQuery } }, () =>
+              console.log("Finished")
+            );
+          }
+        } else {
+          EventBus.$emit("onShowSnackbar", "Tidak boleh kosong");
         }
       } catch (error) {
         EventBus.$emit("onShowSnackbar", "Gagal mengambil data beranda");
@@ -162,6 +232,10 @@ export default {
     if (this.$route.query.username) {
       this.searchQuery = this.$route.query.username.split("%20").join("");
       this.discoverUsers();
+    }
+
+    if (this.sampleUserList.length === 0) {
+      this.fetchSampleUsers();
     }
   },
   mounted() {

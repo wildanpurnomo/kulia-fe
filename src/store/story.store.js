@@ -3,6 +3,7 @@ import StoryService from '@/services/story.service';
 const initialStoryState = {
     personalStories: [],
     personalFollowingList: [],
+    sampleUserList: [],
 };
 
 export const story = {
@@ -89,6 +90,18 @@ export const story = {
                     }
                 )
         },
+        getSampleUsers({ commit }) {
+            return StoryService.getSampleUsers()
+                .then(
+                    response => {
+                        commit('updateSampleUserList', response.data.data);
+                        return Promise.resolve(response);
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                )
+        },
         resetState({ commit }) {
             commit('resetState');
         }
@@ -100,9 +113,13 @@ export const story = {
         updateFollowingList(state, followingList) {
             state.personalFollowingList = followingList;
         },
+        updateSampleUserList(state, sampleUserList) {
+            state.sampleUserList = sampleUserList;
+        },
         resetState(state) {
-            state.personalFollowingList = [],
-                state.personalStories = []
+            state.personalFollowingList = [];
+            state.personalStories = [];
+            state.sampleUserList = [];
         },
         doNothing() {
         }
@@ -113,6 +130,9 @@ export const story = {
         },
         personalFollowingList: (state) => {
             return state.personalFollowingList;
+        },
+        sampleUserList: (state) => {
+            return state.sampleUserList;
         }
     }
 }
