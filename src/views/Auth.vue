@@ -13,7 +13,9 @@ export default {
           this.$router.push({ name: "Home" });
         }
       } catch (error) {
-        this.logout();
+        if (process.env.NODE_ENV === 'development') {
+          console.log("Not authenticated. This is expected");
+        }
       }
     },
     async logout() {
