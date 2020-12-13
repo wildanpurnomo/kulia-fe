@@ -1,15 +1,14 @@
 <template>
   <v-container fill-height>
-    <v-row align="center">
-      <v-col cols="6" class="hidden-sm-and-down">
-        <v-img src="@/assets/image.png"></v-img>
+    <v-row class="d-flex align-center">
+      <v-col class="pb-10">
+        <v-img src="@/assets/image.png" max-width="600"></v-img>
       </v-col>
-      <v-spacer></v-spacer>
-      <v-col cols="6" class="pa-15 xs-12">
-        <v-card-title class="font blue-grey--text text--darken-3">
+      <v-col>
+        <v-card-title class="font py-5">
           Wappita
         </v-card-title>
-        <v-card-text class="pt-2 text-subtitle-1" width="100">
+        <v-card-text class="ma-2">
           Bagikan dan temukan pengetahuan baru. Perluas pengetahuan anda dengan membaca berbagai konten yang menarik.
         </v-card-text>
         <v-row class="pl-8 pt-6">
@@ -23,7 +22,8 @@
           </div>
           <div>
             <v-btn
-              class="blue-grey--text text--darken-3 rounded-xl"
+              class="rounded-xl"
+              :color="colorTheme"
               outlined
               :to="{ name: 'Register' }"
             >Register</v-btn>
@@ -40,7 +40,7 @@ export default {
   components: {},
 
   data: () => ({
-    //
+    colorTheme: "#394867",
   }),
 };
 </script>
@@ -49,5 +49,6 @@ export default {
 .font {
   font-family: Lobster Two;
   font-size: 50px;
+  color: #394867
 }
 </style>

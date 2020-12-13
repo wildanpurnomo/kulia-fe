@@ -5,9 +5,7 @@
         <v-row justify="center">
           <v-card class="pa-10 rounded-lg" width="500" :color="colorTheme">
             <v-row justify="center">
-              <div class="mb-15 text-h3 white--text">
-                Login
-              </div>
+              <div class="mb-15 text-h3 white--text">Login</div>
             </v-row>
             <v-form ref="loginForm">
               <v-text-field
@@ -40,7 +38,13 @@
               </div>
               <div class="text-center white--text">
                 Belum memiliki akun?
-                <router-link :to="{ name: 'Register' }"><b>Register</b></router-link>
+                <router-link :to="{ name: 'Register' }"
+                  ><b>Register</b></router-link
+                >
+              </div>
+              <div class="text-center white--text">atau</div>
+              <div class="text-center mt-2">
+                <GoogleAuth />
               </div>
               <div class="red--text mt-8" :hidden="errorMessage.length === 0">
                 {{ errorMessage }}
@@ -55,6 +59,7 @@
 </template>
 <script>
 import Snackbar from "@/components/Snackbar";
+import GoogleAuth from "@/components/GoogleAuth";
 import { EventBus } from "@/bus";
 import formInputMixin from "@/mixins/form.mixin";
 import errorMixin from "@/mixins/error.mixin";
@@ -62,7 +67,7 @@ import UserModel from "@/models/user.model";
 
 export default {
   name: "Login",
-  components: { Snackbar },
+  components: { Snackbar, GoogleAuth },
   data: () => ({
     user: new UserModel(),
     isPasswordShown: false,

@@ -32,6 +32,10 @@ class StoryService extends BaseService {
     updateAuthorPoints(updateAuthorData) {
         return this.sendAPIRequest('/story/update_author_points', 'PUT', updateAuthorData);
     }
+
+    getSampleUsers() {
+        return this.sendAPIRequest('/story/sample_users', 'GET');
+    }
 }
 
 export default new StoryService();

@@ -77,6 +77,18 @@ export const auth = {
                     }
                 )
         },
+        withGoogle({ commit }, userData) {
+            return AuthService.withGoogle(userData)
+                .then(
+                    response => {
+                        commit('authSuccess', response.data.data);
+                        return Promise.resolve(response);
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                )
+        }
     },
     mutations: {
         authSuccess(state, userData) {

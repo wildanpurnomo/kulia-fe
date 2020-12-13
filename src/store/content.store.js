@@ -14,7 +14,7 @@ export const content = {
             return ContentService.getContentById(contentId)
                 .then(
                     response => {
-                        commit('updateDetailContent', response.data.data);
+                        commit('doNothing');
                         return Promise.resolve(response);
                     },
                     error => {

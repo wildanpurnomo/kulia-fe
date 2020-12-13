@@ -5,11 +5,7 @@
         <v-row justify="center">
           <v-card class="pa-10 rounded-lg" width="500" :color="colorTheme">
             <v-row justify="center">
-              <div
-                class="mb-15 text-h3 white--text"
-              >
-                Register
-              </div>
+              <div class="mb-15 text-h3 white--text">Register</div>
             </v-row>
             <v-form ref="registerForm" v-model="isFormValid">
               <v-text-field
@@ -66,6 +62,10 @@
                   ><b>Kembali ke login</b></router-link
                 >
               </div>
+              <div class="text-center white--text">atau</div>
+              <div class="text-center mt-2">
+                <GoogleAuth />
+              </div>
               <div class="h6 red--text" :hidden="errorMessage.length === 0">
                 {{ errorMessage }}
               </div>
@@ -77,12 +77,14 @@
   </v-container>
 </template>
 <script>
+import GoogleAuth from "@/components/GoogleAuth";
 import formInputMixin from "@/mixins/form.mixin";
 import errorMixin from "@/mixins/error.mixin";
 import UserModel from "@/models/user.model";
 
 export default {
   name: "Register",
+  components: { GoogleAuth },
   data: () => ({
     user: new UserModel(),
     errorMessage: "",
