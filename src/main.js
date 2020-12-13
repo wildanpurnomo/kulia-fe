@@ -6,6 +6,7 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 import axios from 'axios';
 import VueSocialSharing from 'vue-social-sharing';
+import GSignInButton from 'vue-google-signin-button'
 
 axios.defaults.withCredentials = true;
 
@@ -13,6 +14,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 
 Vue.use(VueSocialSharing);
+Vue.use(GSignInButton);
 
 new Vue({
   router,

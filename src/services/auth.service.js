@@ -26,7 +26,11 @@ class AuthService extends BaseService {
     }
 
     editPassword(userData) {
-        return this.sendAPIRequest('/user/edit_password', 'POST', userData)
+        return this.sendAPIRequest('/user/edit_password', 'POST', userData);
+    }
+
+    withGoogle(userData) {
+        return this.sendAPIRequest('/auth/with_google', 'POST', userData);
     }
 }
 
