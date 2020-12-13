@@ -6,7 +6,7 @@
           <v-card-title>Wappita Poin: {{ userData.points }}</v-card-title>
           <v-card-text>
             <div class="text-caption">
-              Bagikan lebih banyak konten untuk mendapatkan poin.
+              Poin anda bertambah ketika postingan anda dibagikan pengguna lain ke beranda Wappita.
             </div>
           </v-card-text>
         </v-card>

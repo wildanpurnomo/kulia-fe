@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export default class BaseService {
     constructor() {
-        this.baseUrl = process.env.VUE_APP_API_BASE_URL;
-        //this.baseUrl = 'http://localhost:4000/api';
+        //this.baseUrl = process.env.VUE_APP_API_BASE_URL;
+        this.baseUrl = 'http://localhost:5000/api';
     }
 
     sendAPIRequest(endpoint, method = 'GET', requestBody = null) {

@@ -7,6 +7,9 @@ import vuetify from './plugins/vuetify';
 import axios from 'axios';
 import VueSocialSharing from 'vue-social-sharing';
 import GSignInButton from 'vue-google-signin-button'
+import VueVideoPlayer from 'vue-video-player';
+import 'video.js/dist/video-js.css';
+import 'videojs-youtube';
 
 axios.defaults.withCredentials = true;
 
@@ -15,6 +18,7 @@ Vue.prototype.$http = axios;
 
 Vue.use(VueSocialSharing);
 Vue.use(GSignInButton);
+Vue.use(VueVideoPlayer);
 
 new Vue({
   router,

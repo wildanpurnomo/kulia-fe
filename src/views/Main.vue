@@ -9,7 +9,7 @@
 <script>
 import Snackbar from "@/components/Snackbar";
 import MainNavbar from "@/components/Navbar.vue";
-import Breadcrumbs from "@/components/Breadcrumbs.vue"
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 import { EventBus } from "@/bus";
 import PageModel from "@/models/page.model";
 
@@ -25,7 +25,9 @@ export default {
     children: [
       new PageModel("Beranda", "mdi-view-dashboard", { name: "Home" }),
       new PageModel("Konten Saya", "mdi-content-paste", { name: "MyContent" }),
-      new PageModel("Temukan Author", "mdi-account-box-multiple", { name: "MyFollowing" }),
+      new PageModel("Mengikuti", "mdi-account-box-multiple", {
+        name: "MyFollowing",
+      }),
       new PageModel("Edit Profil", "mdi-account", { name: "MyProfile" }),
     ],
   }),
@@ -46,18 +48,12 @@ export default {
       }
     },
     redirectLogin(snackbarMessage) {
-      this.$router
-        .push({
-          name: "Login",
-          params: {
-            snackbarMessage: snackbarMessage,
-          },
-        })
-        .catch((err) => {
-          if (process.env.NODE_ENV === "development") {
-            console.error(err);
-          }
-        });
+      this.$router.push({
+        name: "Login",
+        params: {
+          snackbarMessage: snackbarMessage,
+        },
+      });
     },
     resetStates() {
       this.$store.dispatch("content/resetState");
@@ -69,7 +65,7 @@ export default {
       this.logout();
     });
     EventBus.$on("onSessionEnd", () => {
-      this.logout({ isForceLogout: true});
+      this.logout({ isForceLogout: true });
     });
     EventBus.$on("onAuthenticate", () => {
       this.authenticate();
