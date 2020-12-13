@@ -12,6 +12,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="7">
+        <EmptyView v-if="personalStories.length <= 0" />
         <v-row v-for="(item, index) in personalStories" :key="index">
           <v-card
             width="100%"
@@ -84,6 +85,7 @@ import { EventBus } from "@/bus";
 import dateTimeMixin from "@/mixins/datetime.mixin";
 import UserContent from "@/components/UserContent.vue";
 import AddContent from "@/components/Add.vue";
+import EmptyView from "@/components/EmptyView.vue";
 
 export default {
   name: "Home",
@@ -91,6 +93,7 @@ export default {
   components: {
     UserContent,
     AddContent,
+    EmptyView,
   },
 
   data: () => ({
@@ -121,6 +124,7 @@ export default {
   },
   mounted() {
     EventBus.$emit("onPageChange", "Beranda");
+    EventBus.$emit("emptyViewMessage", "Belum ada konten yang dapat kami tampilkan. Untuk mendapatkan pengalaman lebih seru,");
     EventBus.$on("onFollowChange", () => {
       this.getPersonalList();
     });
