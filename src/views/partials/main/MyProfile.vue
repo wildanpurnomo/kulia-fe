@@ -5,7 +5,7 @@
         <v-expansion-panels v-model="panel" flat class="rounded-lg">
           <!-- Edit Username -->
           <v-expansion-panel>
-            <v-expansion-panel-header class="text-md-subtitle-2 text-sm-h2">
+            <v-expansion-panel-header class="text-subtitle">
               Edit Username dan Email
             </v-expansion-panel-header>
             <v-expansion-panel-content>
@@ -77,7 +77,7 @@
 
           <!-- Edit Password -->
           <v-expansion-panel>
-            <v-expansion-panel-header class="text-md-subtitle-2 text-sm-h2">
+            <v-expansion-panel-header class="text-subtitle">
               Edit Password
             </v-expansion-panel-header>
             <v-expansion-panel-content>

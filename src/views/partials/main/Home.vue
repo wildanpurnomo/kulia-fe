@@ -12,7 +12,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="7">
-        <EmptyView v-if="personalStories.length <= 0" />
+        <!-- <EmptyView v-if="personalStories.length <= 0" /> -->
         <v-row v-for="(item, index) in personalStories" :key="index">
           <v-card
             width="100%"
@@ -74,6 +74,20 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-row class="d-flex justify-center align-center" v-if="personalStories.length <= 0">
+      <v-col cols="12" md="8">
+        <v-card-title class="font pt-1">Oops ...! <br></v-card-title >
+        <v-card-text class="text--disabled text-body-1 font-weight-medium mb-10">
+            Belum ada konten yang dapat kami tampilkan. Untuk mendapatkan pengalaman lebih seru,
+            <router-link :to="{ name: 'SearchUser' }"><br>Temukan dan ikuti Author lainnya</router-link>
+        </v-card-text>
+      </v-col>
+    </v-row>
+    <v-row class="d-flex justify-center" v-if="personalStories.length <= 0">
+      <v-col cols="12" md="5">
+        <v-img src="@/assets/image2.png" max-width="500"></v-img>
+      </v-col>
+    </v-row>
 <!-- add content -->
     <div>
       <AddContent />
@@ -85,7 +99,6 @@ import { EventBus } from "@/bus";
 import dateTimeMixin from "@/mixins/datetime.mixin";
 import UserContent from "@/components/UserContent.vue";
 import AddContent from "@/components/Add.vue";
-import EmptyView from "@/components/EmptyView.vue";
 
 export default {
   name: "Home",
@@ -93,7 +106,6 @@ export default {
   components: {
     UserContent,
     AddContent,
-    EmptyView,
   },
 
   data: () => ({
@@ -124,7 +136,6 @@ export default {
   },
   mounted() {
     EventBus.$emit("onPageChange", "Beranda");
-    EventBus.$emit("emptyViewMessage", "Belum ada konten yang dapat kami tampilkan. Untuk mendapatkan pengalaman lebih seru,");
     EventBus.$on("onFollowChange", () => {
       this.getPersonalList();
     });
@@ -132,3 +143,11 @@ export default {
   mixins: [dateTimeMixin],
 };
 </script>
+<style scope>
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap");
+.font {
+  font-family: Lobster Two;
+  font-size: 30px;
+  color: #394867cb
+}
+</style>

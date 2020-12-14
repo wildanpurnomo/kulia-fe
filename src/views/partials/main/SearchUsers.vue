@@ -15,8 +15,8 @@
       </v-col>
       <v-col cols="2" md="2" class="d-flex justify-end pr-1">
         <v-btn dark rounded :color="colorTheme" :to="{ name: 'MyFollowing' }">
-          <v-icon class="hidden-md-and-up">mdi-account-multiple</v-icon>
-          <span class="hidden-sm-and-down">Author diikuti</span>
+          <v-icon class="hidden-lg-and-up">mdi-account-multiple</v-icon>
+          <span class="hidden-md-and-down">Author diikuti</span>
         </v-btn>
       </v-col>
       <v-col cols="11" md="8" v-show="!$route.query.username">
@@ -37,9 +37,7 @@
             </v-avatar>
           </v-col>
           <v-col class="d-flex align-center">
-            <span class="text-md-h6 text-sm-subtitle pl-3">{{
-              item.username
-            }}</span>
+            <span class="text-md-h6 text-sm-subtitle pl-3">{{ item.username }}</span>
           </v-col>
           <v-col class="d-flex align-center justify-end">
             <v-btn
@@ -50,9 +48,7 @@
               depressed
               :color="colorTheme"
             >
-              <v-icon class="hidden-md-and-up"
-                >mdi-account-multiple-plus</v-icon
-              >
+              <v-icon class="hidden-md-and-up">mdi-account-multiple-plus</v-icon>
               <span class="hidden-sm-and-down px-5">Ikuti</span>
             </v-btn>
             <v-btn
@@ -61,9 +57,7 @@
               class="red--text text--accent-2 rounded-xl"
               outlined
             >
-              <v-icon class="hidden-md-and-up"
-                >mdi-account-multiple-minus</v-icon
-              >
+              <v-icon class="hidden-md-and-up">mdi-account-multiple-minus</v-icon>
               <span class="hidden-sm-and-down">Unfollow</span>
             </v-btn>
           </v-col>
@@ -96,9 +90,7 @@
               depressed
               :color="colorTheme"
             >
-              <v-icon class="hidden-sm-and-up"
-                >mdi-account-multiple-plus</v-icon
-              >
+              <v-icon class="hidden-md-and-up">mdi-account-multiple-plus</v-icon>
               <span class="hidden-sm-and-down px-5">Ikuti</span>
             </v-btn>
             <v-btn
@@ -107,7 +99,7 @@
               class="red--text text--accent-2 rounded-xl"
               outlined
             >
-              <v-icon class="hidden-sm-and-up"
+              <v-icon class="hidden-md-and-up"
                 >mdi-account-multiple-minus</v-icon
               >
               <span class="hidden-sm-and-down">Unfollow</span>
