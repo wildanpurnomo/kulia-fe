@@ -18,13 +18,11 @@
           :color="colorTheme"
           :to="{ name: 'SearchUser' }"
         >
-          <v-icon class="hidden-md-and-up">mdi-account-multiple-plus</v-icon>
-          <span class="hidden-sm-and-down">Cari Author baru</span>
+          <v-icon class="hidden-lg-and-up">mdi-account-multiple-plus</v-icon>
+          <span class="hidden-md-and-down">Cari Author baru</span>
         </v-btn>
       </v-col>
-      <v-col cols="12" md="7" v-if="personalFollowingList.length <= 0" class="d-flex justify-center">
-      <EmptyView />
-      </v-col>
+    
       <v-col
         cols="11"
         md="8"
@@ -54,6 +52,20 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-row class="d-flex justify-center align-center" v-if="personalFollowingList.length <= 0">
+      <v-col cols="12" md="8" sm="10">
+        <v-card-title class="font pt-1">Oops ...! <br></v-card-title >
+        <v-card-text class="text--disabled text-body-1 font-weight-medium mb-10">
+            Tidak ada list Author yang dapat kami tampilkan, karena kamu belum mengikuti satupun Author.
+            <router-link :to="{ name: 'SearchUser' }"><br>Temukan dan ikuti Author lainnya</router-link>
+        </v-card-text>
+      </v-col>
+    </v-row>
+    <v-row class="d-flex justify-center" v-if="personalFollowingList.length <= 0">
+      <v-col cols="12" md="5" sm="8">
+        <v-img src="@/assets/image2.png" max-width="500"></v-img>
+      </v-col>
+    </v-row>
     <v-dialog v-model="isDeleteDialogShown" max-width="500" persistent>
       <v-card>
         <v-card-title class="text-md-h6 text-sm-subtitle">Konfirmasi unfollow</v-card-title>
@@ -76,13 +88,11 @@
 </template>
 <script>
 import { EventBus } from "@/bus";
-import EmptyView from "@/components/EmptyView.vue";
 
 export default {
   name: "MyFollowing",
 
   components: {
-    EmptyView,
   },
 
   data: () => ({
@@ -143,7 +153,14 @@ export default {
   },
   mounted() {
     EventBus.$emit("onPageChange", "Saya Ikuti");
-    EventBus.$emit("emptyViewMessage", "Tidak ada list Author yang dapat kami tampilkan, karena kamu belum mengikuti satupun Author.");
   }
 };
 </script>
+<style scope>
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap");
+.font {
+  font-family: Lobster Two;
+  font-size: 30px;
+  color: #394867cb
+}
+</style>
