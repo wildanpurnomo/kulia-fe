@@ -192,7 +192,12 @@ export default {
         });
         if (response.status === 200) {
           this.$store.dispatch("story/getPersonalStories");
-          this.discoverUsers();
+
+          if (this.$route.query.username) {
+            this.discoverUsers();
+          } else {
+            this.fetchSampleUsers();
+          }
         }
       } catch (error) {
         EventBus.$emit("onShowSnackbar", "Gagal mengikuti");
@@ -208,7 +213,12 @@ export default {
         if (response.status === 200) {
           this.$store.dispatch("story/getPersonalStories");
           this.isDeleteDialogShown = false;
-          this.discoverUsers();
+          
+          if (this.$route.query.username) {
+            this.discoverUsers();
+          } else {
+            this.fetchSampleUsers();
+          }
         }
       } catch (error) {
         EventBus.$emit("onShowSnackbar", "Gagal unfollow");
