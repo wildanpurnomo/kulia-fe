@@ -9,6 +9,7 @@
 </template>
 <script>
 import { EventBus } from "@/bus";
+import errorMixin from "@/mixins/error.mixin";
 
 export default {
   name: "GoogleAuth",
@@ -28,9 +29,11 @@ export default {
         let response = await this.$store.dispatch("auth/withGoogle", userData);
         if (response.status === 200) {
           this.$router.push({ name: "Home" });
+        } else {
+          EventBus.$emit("onShowSnackbar", "Username atau email telah digunakan");
         }
       } catch (error) {
-        EventBus.$emit("onShowSnackbar", "Gagal login Google");
+        EventBus.$emit("onShowSnackbar", this.getErrorMessage(error));
       }
     },
     onAuthError(error) {
@@ -39,6 +42,7 @@ export default {
       }
     },
   },
+  mixins: [errorMixin],
 };
 </script>
 <style scoped>
