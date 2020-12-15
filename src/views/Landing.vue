@@ -44,7 +44,7 @@ export default {
   }),
 };
 </script>
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap");
 .font {
   font-family: Lobster Two;

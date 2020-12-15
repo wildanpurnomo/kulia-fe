@@ -145,6 +145,7 @@ export default {
         );
         if (response.status === 200) {
           this.isDeleteDialogShown = false;
+          this.$store.dispatch("story/getPersonalStories");
           EventBus.$emit("onShowSnackbar", "Berhasil menghapus konten");
         }
       } catch (error) {

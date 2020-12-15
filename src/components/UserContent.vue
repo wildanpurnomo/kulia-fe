@@ -153,7 +153,7 @@
                 v-for="(item, index) in socialList"
                 :key="index"
                 :network="item.network"
-                :url="`https://capstone-similarity-check.et.r.appspot.com/public-view/${contentData._id}`"
+                :url="`https://abwprod-dot-capstone-similarity-check.et.r.appspot.com/public-view/${contentData._id}`"
                 :title="`Author ini membagikan konten kerennya di aplikasi Wappita. Kunjungi pranala berikut untuk melihat!`"
                 :description="`Author ini membagikan konten kerennya di aplikasi Wappita. Kunjungi pranala berikut untuk melihat!`"
               >
@@ -272,7 +272,7 @@ export default {
     copyToClipboard() {
       let dummyTextArea = document.createElement("textarea");
       dummyTextArea.setAttribute("type", "hidden");
-      dummyTextArea.textContent = `Author ini membagikan konten kerennya di aplikasi Wappita. Kunjungi pranala berikut untuk melihat! https://capstone-similarity-check.et.r.appspot.com/public-view/${this.contentData._id}`;
+      dummyTextArea.textContent = `Author ini membagikan konten kerennya di aplikasi Wappita. Kunjungi pranala berikut untuk melihat! https://abwprod-dot-capstone-similarity-check.et.r.appspot.com/public-view/${this.contentData._id}`;
       document.body.appendChild(dummyTextArea);
 
       let selection = document.getSelection();
