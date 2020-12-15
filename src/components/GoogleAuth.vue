@@ -34,6 +34,7 @@ export default {
         }
       } catch (error) {
         EventBus.$emit("onShowSnackbar", this.getErrorMessage(error));
+        console.log(error);
       }
     },
     onAuthError(error) {
